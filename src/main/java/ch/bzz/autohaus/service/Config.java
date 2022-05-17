@@ -2,7 +2,11 @@ package ch.bzz.autohaus.service;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -12,7 +16,8 @@ import java.util.Set;
 @ApplicationPath("/resource")
 
 public class Config extends Application {
-
+    private static final String PROPERTIES_PATH = "C:\\Users\\41765\\Desktop\\Albin\\Lehre\\BZZ\\Informatik\\M133\\AutohausEE\\src\\main\\webapp\\autohaus.properties";
+    private static Properties properties = null;
     /**
      * define all provider classes
      *
@@ -25,4 +30,45 @@ public class Config extends Application {
         return providers;
     }
 
+    /**
+     * Gets the value of a property
+     *
+     * @param property the key of the property to be read
+     * @return the value of the property
+     */
+    public static String getProperty(String property) {
+        if (Config.properties == null) {
+            setProperties(new Properties());
+            readProperties();
+        }
+        String value = Config.properties.getProperty(property);
+        if (value == null) return "";
+        return value;
+    }
+
+
+    /**
+     * reads the properties file
+     */
+    private static void readProperties() {
+
+        InputStream inputStream;
+        try {
+            inputStream = new FileInputStream(PROPERTIES_PATH);
+            properties.load(inputStream);
+            if (inputStream != null) inputStream.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    /**
+     * Sets the properties
+     *
+     * @param properties the value to set
+     */
+    private static void setProperties(Properties properties) {
+        Config.properties = properties;
+    }
 }
