@@ -27,6 +27,10 @@ public class Config extends Application {
     public Set<Class<?>> getClasses() {
         HashSet<Class<?>> providers = new HashSet<>();
         providers.add(TestService.class);
+        providers.add(AutoController.class);
+        providers.add(AutohausController.class);
+        providers.add(KontaktpersonController.class);
+        providers.add(UserController.class);
         return providers;
     }
 
