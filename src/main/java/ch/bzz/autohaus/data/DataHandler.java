@@ -3,9 +3,13 @@ package ch.bzz.autohaus.data;
 import ch.bzz.autohaus.model.Auto;
 import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
+import ch.bzz.autohaus.model.deserializer.ColorDeserializer;
+import ch.bzz.autohaus.model.serializer.ColorSerializer;
 import ch.bzz.autohaus.service.Config;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -125,6 +129,10 @@ public class DataHandler {
                     Paths.get(path)
             );
             ObjectMapper objectMapper = new ObjectMapper();
+            SimpleModule simpleModule = new SimpleModule();
+            simpleModule.addSerializer(Color.class,new ColorSerializer());
+            simpleModule.addDeserializer(Color.class,new ColorDeserializer());
+            objectMapper.registerModule(simpleModule);
             Auto[] Autos = objectMapper.readValue(jsonData, Auto[].class);
             for (Auto Auto : Autos) {
                 getautoList().add(Auto);

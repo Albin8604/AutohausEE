@@ -1,11 +1,16 @@
 package ch.bzz.autohaus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public class Autohaus {
     private String autohausUUID;
+
+    @JsonIgnore
     private List<Auto> autos;
+    @JsonIgnore
     private List<Kontaktperson> kontaktpersonen;
     private User inhaber;
     private String strasse;

@@ -1,6 +1,10 @@
 package ch.bzz.autohaus.model;
 
-import java.awt.Color;
+
+import ch.bzz.autohaus.model.serializer.ColorSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import java.awt.*;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
