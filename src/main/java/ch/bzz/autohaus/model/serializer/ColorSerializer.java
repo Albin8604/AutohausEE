@@ -10,9 +10,10 @@ import java.io.IOException;
 public class ColorSerializer extends JsonSerializer<Color> {
     @Override
     public void serialize(Color color, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeStartObject();
-        jsonGenerator.writeFieldName("farbe");
-        jsonGenerator.writeString(Integer.toHexString(color.getRGB()));
-        jsonGenerator.writeEndObject();
+        if (color == null) {
+            jsonGenerator.writeNull();
+            return;
+        }
+        jsonGenerator.writeNumber(color.getRGB());
     }
 }
