@@ -1,7 +1,20 @@
 package ch.bzz.autohaus.model;
 
+import ch.bzz.autohaus.data.deserializer.ByteArrayDeserializer;
+import ch.bzz.autohaus.data.deserializer.LocalDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.io.File;
 import java.time.LocalDate;
+
+/**
+ * Model class of Kontaktperson
+ *
+ * @author Albin Smrqaku
+ * @since 2022-05-19
+ * @version 1.0
+ *
+ */
 
 public class Kontaktperson {
     private String kontaktpersonUUID;
@@ -9,13 +22,17 @@ public class Kontaktperson {
     private String vorname;
     private String email;
     private String tel;
-    private File bild;
+
+    @JsonDeserialize(using = ByteArrayDeserializer.class)
+    private Byte[] bild;
+
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate gebDat;
 
     public Kontaktperson() {
     }
 
-    public Kontaktperson(String kontaktpersonUUID, String nachname, String vorname, String email, String tel, File bild, LocalDate gebDat) {
+    public Kontaktperson(String kontaktpersonUUID, String nachname, String vorname, String email, String tel, Byte[] bild, LocalDate gebDat) {
         this.kontaktpersonUUID = kontaktpersonUUID;
         this.nachname = nachname;
         this.vorname = vorname;
@@ -29,62 +46,56 @@ public class Kontaktperson {
         return kontaktpersonUUID;
     }
 
-    public Kontaktperson setKontaktpersonUUID(String kontaktpersonUUID) {
+    public void setKontaktpersonUUID(String kontaktpersonUUID) {
         this.kontaktpersonUUID = kontaktpersonUUID;
-        return this;
     }
 
     public String getNachname() {
         return nachname;
     }
 
-    public Kontaktperson setNachname(String nachname) {
+    public void setNachname(String nachname) {
         this.nachname = nachname;
-        return this;
     }
 
     public String getVorname() {
         return vorname;
     }
 
-    public Kontaktperson setVorname(String vorname) {
+    public void setVorname(String vorname) {
         this.vorname = vorname;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Kontaktperson setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getTel() {
         return tel;
     }
 
-    public Kontaktperson setTel(String tel) {
+    public void setTel(String tel) {
         this.tel = tel;
-        return this;
     }
 
-    public File getBild() {
+    public Byte[] getBild() {
         return bild;
     }
 
-    public Kontaktperson setBild(File bild) {
+    public void setBild(Byte[] bild) {
         this.bild = bild;
-        return this;
     }
 
     public LocalDate getGebDat() {
         return gebDat;
     }
 
-    public Kontaktperson setGebDat(LocalDate gebDat) {
+    public void setGebDat(LocalDate gebDat) {
         this.gebDat = gebDat;
-        return this;
     }
+
 }

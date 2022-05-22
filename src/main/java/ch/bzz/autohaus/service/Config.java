@@ -2,16 +2,23 @@ package ch.bzz.autohaus.service;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
 /**
- * configure the web services and properties
+ * Configure the web services and properties
+ *
+ * @author Albin Smrqaku
+ * @since 2022-05-19
+ * @version 1.1
+ *
  */
+
 
 @ApplicationPath("/resource")
 
@@ -26,11 +33,10 @@ public class Config extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         HashSet<Class<?>> providers = new HashSet<>();
-        providers.add(TestService.class);
-        providers.add(AutoController.class);
-        providers.add(AutohausController.class);
-        providers.add(KontaktpersonController.class);
-        providers.add(UserController.class);
+        providers.add(AutoService.class);
+        providers.add(AutohausService.class);
+        providers.add(KontaktpersonService.class);
+        providers.add(UserService.class);
         return providers;
     }
 
@@ -53,14 +59,15 @@ public class Config extends Application {
 
     /**
      * reads the properties file
+     *
      */
     private static void readProperties() {
 
         InputStream inputStream;
         try {
-            inputStream = new FileInputStream(PROPERTIES_PATH);
+            inputStream = Files.newInputStream(Paths.get(PROPERTIES_PATH));
             properties.load(inputStream);
-            if (inputStream != null) inputStream.close();
+            inputStream.close();
         } catch (IOException ex) {
             ex.printStackTrace();
             throw new RuntimeException();

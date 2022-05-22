@@ -1,7 +1,6 @@
 package ch.bzz.autohaus.service;
 
 import ch.bzz.autohaus.data.DataHandler;
-import ch.bzz.autohaus.model.Auto;
 import ch.bzz.autohaus.model.Autohaus;
 
 import javax.ws.rs.GET;
@@ -12,8 +11,24 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+/**
+ * Webservice for Operations with the Autohaus class
+ *
+ * @author Albin Smrqaku
+ * @since 2022-05-19
+ * @version 1.0
+ *
+ */
+
 @Path("autohaus")
-public class AutohausController {
+public class AutohausService {
+    /**
+     * Delivers autohausList as a JsonArray
+     *
+     * @return Response with Status OK and the autohausList
+     *
+     */
+
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
@@ -22,9 +37,17 @@ public class AutohausController {
 
         return Response
                 .status(200)
-                .entity("Test erfolgreich")
+                .entity(autohausList)
                 .build();
     }
+
+    /**
+     * Delivers an autohaus with a specific uuid
+     *
+     * @param id uuid of the autohaus
+     * @return Response with Status OK and the autohaus
+     *
+     */
 
     @GET
     @Path("autohaus")
@@ -35,7 +58,7 @@ public class AutohausController {
         Autohaus autohaus = DataHandler.getInstance().readAutohausByUUID(id);
         return Response
                 .status(200)
-                .entity("Test erfolgreich")
+                .entity(autohaus)
                 .build();
     }
 }

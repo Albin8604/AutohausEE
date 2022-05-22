@@ -1,22 +1,41 @@
 package ch.bzz.autohaus.model;
 
+import ch.bzz.autohaus.data.deserializer.AutoDeserializer;
+import ch.bzz.autohaus.data.deserializer.AutoListDeserializer;
+import ch.bzz.autohaus.data.deserializer.KonktaktpersonDeserializer;
+import ch.bzz.autohaus.data.deserializer.KontaktpersonListDeserializer;
+import ch.bzz.autohaus.data.deserializer.LocalDateDeserializer;
+import ch.bzz.autohaus.data.deserializer.UserDeserializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Model class of Autohaus
+ *
+ * @author Albin Smrqaku
+ * @since 2022-05-19
+ * @version 1.0
+ *
+ */
+
 public class Autohaus {
     private String autohausUUID;
-
-    @JsonIgnore
+    @JsonDeserialize(using = AutoListDeserializer.class)
     private List<Auto> autos;
-    @JsonIgnore
+    @JsonDeserialize(using = KontaktpersonListDeserializer.class)
     private List<Kontaktperson> kontaktpersonen;
+
+    @JsonDeserialize(using = UserDeserializer.class)
     private User inhaber;
     private String strasse;
     private String nummer;
     private String ort;
     private String plz;
+
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate gruendung;
 
     public Autohaus() {

@@ -1,4 +1,12 @@
 package ch.bzz.autohaus.model;
+/**
+ * Model class of User
+ *
+ * @author Albin Smrqaku
+ * @since 2022-05-19
+ * @version 1.0
+ *
+ */
 
 public class User {
     private String userUUID;

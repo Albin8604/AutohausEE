@@ -3,13 +3,10 @@ package ch.bzz.autohaus.data;
 import ch.bzz.autohaus.model.Auto;
 import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
-import ch.bzz.autohaus.model.deserializer.ColorDeserializer;
-import ch.bzz.autohaus.model.serializer.ColorSerializer;
+import ch.bzz.autohaus.model.User;
 import ch.bzz.autohaus.service.Config;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,13 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * reads and writes the data in the JSON-files
+ * Reads and writes the data in the JSON-files
+ *
+ * @author Albin Smrqaku
+ * @since 2022-05-19
+ * @version 1.0
+ *
  */
+
 public class DataHandler {
     private static DataHandler instance = null;
     private List<Auto> autoList;
     private List<Autohaus> autohausList;
     private List<Kontaktperson> kontaktpersonList;
+    private List<User> userList;
 
     /**
      * private constructor defeats instantiation
@@ -38,8 +42,9 @@ public class DataHandler {
     }
 
     /**
-     * gets the only instance of this class
-     * @return
+     * gets the only instance of this class (Singleton pattern)
+     *
+     * @return instance of this class
      */
     public static DataHandler getInstance() {
         if (instance == null)
@@ -50,6 +55,7 @@ public class DataHandler {
 
     /**
      * reads all Autos
+     *
      * @return list of Autos
      */
     public List<Auto> readAllAutos() {
@@ -57,7 +63,8 @@ public class DataHandler {
     }
 
     /**
-     * reads a Auto by its uuid
+     * reads an Auto by its uuid
+     *
      * @param autoUUID
      * @return the Auto (null=not found)
      */
@@ -73,6 +80,7 @@ public class DataHandler {
 
     /**
      * reads all Autohaus
+     *
      * @return list of Autohaus
      */
     public List<Autohaus> readAllAutohaus() {
@@ -81,7 +89,8 @@ public class DataHandler {
     }
 
     /**
-     * reads a Autohaus by its uuid
+     * reads an Autohaus by its uuid
+     *
      * @param autohausUUID
      * @return the Autohaus (null=not found)
      */
@@ -97,6 +106,7 @@ public class DataHandler {
 
     /**
      * reads all Kontaktperson
+     *
      * @return list of Kontaktperson
      */
     public List<Kontaktperson> readAllKontaktperson() {
@@ -106,6 +116,7 @@ public class DataHandler {
 
     /**
      * reads a Kontaktperson by its uuid
+     *
      * @param kontaktpersonUUID
      * @return the Kontaktperson (null=not found)
      */
@@ -120,6 +131,32 @@ public class DataHandler {
     }
 
     /**
+     * reads all User
+     *
+     * @return list of User
+     */
+    public List<User> readAllUser() {
+
+        return getUserList();
+    }
+
+    /**
+     * reads a User by its uuid
+     *
+     * @param userUUID
+     * @return the User (null=not found)
+     */
+    public User readUserByUUID(String userUUID) {
+        User user = null;
+        for (User entry : getUserList()) {
+            if (entry.getUserUUID().equals(userUUID)) {
+                user = entry;
+            }
+        }
+        return user;
+    }
+
+    /**
      * reads the Autos from the JSON-file
      */
     private void readAutoJSON() {
@@ -129,10 +166,6 @@ public class DataHandler {
                     Paths.get(path)
             );
             ObjectMapper objectMapper = new ObjectMapper();
-            SimpleModule simpleModule = new SimpleModule();
-            simpleModule.addSerializer(Color.class,new ColorSerializer());
-            simpleModule.addDeserializer(Color.class,new ColorDeserializer());
-            objectMapper.registerModule(simpleModule);
             Auto[] Autos = objectMapper.readValue(jsonData, Auto[].class);
             for (Auto Auto : Autos) {
                 getautoList().add(Auto);
@@ -183,6 +216,26 @@ public class DataHandler {
     }
 
     /**
+     * reads the Users from the JSON-file
+     */
+    private void readUserJSON() {
+        try {
+            byte[] jsonData = Files.readAllBytes(
+                    Paths.get(
+                            Config.getProperty("userJSON")
+                    )
+            );
+            ObjectMapper objectMapper = new ObjectMapper();
+            User[] users = objectMapper.readValue(jsonData, User[].class);
+            for (User user : users) {
+                getUserList().add(user);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
      * gets autoList
      *
      * @return value of autoList
@@ -221,7 +274,7 @@ public class DataHandler {
     /**
      * gets kontaktpersonList
      *
-     * @return value of autoList
+     * @return value of kontaktpersonList
      */
     private List<Kontaktperson> getKontaktpersonlist() {
         return kontaktpersonList;
@@ -234,5 +287,23 @@ public class DataHandler {
      */
     private void setKontaktpersonList(List<Kontaktperson> kontaktpersonList) {
         this.kontaktpersonList = kontaktpersonList;
+    }
+
+    /**
+     * gets userList
+     *
+     * @return value of userList
+     */
+    private List<User> getUserList() {
+        return userList;
+    }
+
+    /**
+     * sets userList
+     *
+     * @param userList the value to set
+     */
+    private void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }
