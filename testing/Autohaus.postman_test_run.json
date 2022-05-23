@@ -1,0 +1,390 @@
+{
+	"id": "ff4cc815-56ff-4d91-a5ae-f63f806c8ac7",
+	"name": "Autohaus",
+	"timestamp": "2022-05-23T18:11:32.791Z",
+	"collection_id": "20792887-7b9506ce-133b-4e08-98d4-ff8de4b68671",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 12,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "b380783c-121d-4461-9705-1a6f62327996",
+			"name": "Read all Auto",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/list",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "3c90bcfd-1b6d-48b4-9239-64cbf780bc35",
+			"name": "Read Auto with ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/auto?id=2c9687b1-b5a5-42bc-a376-357fc77a8fea",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "5929d4cb-0b91-4453-8f10-4f792d663e82",
+			"name": "Read Auto with unknown ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/auto?id=1",
+			"time": 3,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "a3204795-5b36-44bd-8d5f-43a9f94ae47f",
+			"name": "Read all Autohaus",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/list",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "b65bca07-2f08-4400-82dc-119ea2a2937c",
+			"name": "Read Autohaus with ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/autohaus?id=699a7440-c308-4ce8-a497-40864a2f0143",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "e4963c36-43a8-4384-9046-d62c3f600483",
+			"name": "Read Autohaus with unknown ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/autohaus?id=1",
+			"time": 3,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "a7b9e3f0-9d26-41eb-ab54-d9111de140eb",
+			"name": "Read all Kontaktperson",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/list",
+			"time": 5,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "8ef61604-230a-4f3b-ae00-78979e6ef487",
+			"name": "Read Kontaktperson with ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/kontaktperson?id=50377991-3b45-4d6c-abdd-c28d9351963a",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "1fc957a3-20e7-43ff-88df-e494300542e0",
+			"name": "Read Kontaktperson with unknown ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/kontaktperson?id=1",
+			"time": 3,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "bdc5c88c-d7bf-497f-b33a-dcf80d2d4ec3",
+			"name": "Read all User",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/list",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ba330bec-495e-4b64-befb-f112e406c5df",
+			"name": "Read User with ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/user?id=f4d9cfb5-e680-4334-ad7a-719d51cf3f43",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "b8d9f20b-3451-4adc-b497-deccc28ca238",
+			"name": "Read User with unknown ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/user?id=1",
+			"time": 3,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 73,
+	"collection": {
+		"requests": [
+			{
+				"id": "b380783c-121d-4461-9705-1a6f62327996",
+				"method": "GET"
+			},
+			{
+				"id": "3c90bcfd-1b6d-48b4-9239-64cbf780bc35",
+				"method": "GET"
+			},
+			{
+				"id": "5929d4cb-0b91-4453-8f10-4f792d663e82",
+				"method": "GET"
+			},
+			{
+				"id": "a3204795-5b36-44bd-8d5f-43a9f94ae47f",
+				"method": "GET"
+			},
+			{
+				"id": "b65bca07-2f08-4400-82dc-119ea2a2937c",
+				"method": "GET"
+			},
+			{
+				"id": "e4963c36-43a8-4384-9046-d62c3f600483",
+				"method": "GET"
+			},
+			{
+				"id": "a7b9e3f0-9d26-41eb-ab54-d9111de140eb",
+				"method": "GET"
+			},
+			{
+				"id": "8ef61604-230a-4f3b-ae00-78979e6ef487",
+				"method": "GET"
+			},
+			{
+				"id": "1fc957a3-20e7-43ff-88df-e494300542e0",
+				"method": "GET"
+			},
+			{
+				"id": "bdc5c88c-d7bf-497f-b33a-dcf80d2d4ec3",
+				"method": "GET"
+			},
+			{
+				"id": "ba330bec-495e-4b64-befb-f112e406c5df",
+				"method": "GET"
+			},
+			{
+				"id": "b8d9f20b-3451-4adc-b497-deccc28ca238",
+				"method": "GET"
+			}
+		]
+	}
+}

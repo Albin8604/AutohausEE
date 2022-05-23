@@ -15,7 +15,7 @@ import java.util.List;
  * Webservice for Operations with the Auto class
  *
  * @author Albin Smrqaku
- * @since 2022-05-19
+ * @since 2022-05-23
  * @version 1.0
  *
  */
@@ -44,7 +44,7 @@ public class AutoService {
      * Delivers an auto with a specific uuid
      *
      * @param id uuid of the auto
-     * @return Response with Status OK and the auto
+     * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the auto
      *
      */
     @GET
@@ -53,10 +53,19 @@ public class AutoService {
     public Response idAuto(
             @QueryParam("id") String id
     ) {
-        Auto auto = DataHandler.getInstance().readAutoByUUID(id);
+        Auto auto = null;
+        int httpStatus = 200;
 
+        try {
+            auto = DataHandler.getInstance().readAutoByUUID(id);
+            if (auto == null) {
+                httpStatus = 404;
+            }
+        } catch (Exception exception) {
+            httpStatus = 400;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(auto)
                 .build();
     }

@@ -15,7 +15,7 @@ import java.util.List;
  * Webservice for Operations with the Kontaktperson class
  *
  * @author Albin Smrqaku
- * @since 2022-05-19
+ * @since 2022-05-23
  * @version 1.0
  *
  */
@@ -43,19 +43,28 @@ public class KontaktpersonService {
      * Delivers a kontaktperson with a specific uuid
      *
      * @param id uuid of the konaktperson
-     * @return Response with Status OK and the kontaktperson
+     * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the kontaktperson
      *
      */
-
     @GET
     @Path("kontaktperson")
     @Produces(MediaType.APPLICATION_JSON)
     public Response idKontaktperson(
             @QueryParam("id") String id
     ) {
-        Kontaktperson kontaktperson = DataHandler.getInstance().readKontaktpersonByUUID(id);
+        Kontaktperson kontaktperson = null;
+        int httpStatus = 200;
+
+        try {
+            kontaktperson = DataHandler.getInstance().readKontaktpersonByUUID(id);
+            if (kontaktperson == null) {
+                httpStatus = 404;
+            }
+        } catch (Exception exception) {
+            httpStatus = 400;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(kontaktperson)
                 .build();
     }

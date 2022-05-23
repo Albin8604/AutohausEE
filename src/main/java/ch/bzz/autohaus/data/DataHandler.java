@@ -17,7 +17,7 @@ import java.util.List;
  * Reads and writes the data in the JSON-files
  *
  * @author Albin Smrqaku
- * @since 2022-05-19
+ * @since 2022-05-23
  * @version 1.0
  *
  */
@@ -33,12 +33,14 @@ public class DataHandler {
      * private constructor defeats instantiation
      */
     private DataHandler() {
-        setautohausList(new ArrayList<>());
-        readAutohausJSON();
+        setUserList(new ArrayList<>());
+        readUserJSON();
         setautoList(new ArrayList<>());
         readAutoJSON();
         setKontaktpersonList(new ArrayList<>());
         readKontaktpersonJSON();
+        setautohausList(new ArrayList<>());
+        readAutohausJSON();
     }
 
     /**

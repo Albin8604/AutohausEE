@@ -15,9 +15,8 @@ import java.util.List;
  * Webservice for Operations with the Autohaus class
  *
  * @author Albin Smrqaku
- * @since 2022-05-19
  * @version 1.0
- *
+ * @since 2022-05-23
  */
 
 @Path("autohaus")
@@ -26,7 +25,6 @@ public class AutohausService {
      * Delivers autohausList as a JsonArray
      *
      * @return Response with Status OK and the autohausList
-     *
      */
 
     @GET
@@ -45,8 +43,7 @@ public class AutohausService {
      * Delivers an autohaus with a specific uuid
      *
      * @param id uuid of the autohaus
-     * @return Response with Status OK and the autohaus
-     *
+     * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the autohaus
      */
 
     @GET
@@ -55,9 +52,19 @@ public class AutohausService {
     public Response idAutohaus(
             @QueryParam("id") String id
     ) {
-        Autohaus autohaus = DataHandler.getInstance().readAutohausByUUID(id);
+        Autohaus autohaus = null;
+        int httpStatus = 200;
+
+        try {
+            autohaus = DataHandler.getInstance().readAutohausByUUID(id);
+            if (autohaus == null) {
+                httpStatus = 404;
+            }
+        } catch (Exception exception) {
+            httpStatus = 400;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(autohaus)
                 .build();
     }

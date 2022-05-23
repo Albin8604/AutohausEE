@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "7b9506ce-133b-4e08-98d4-ff8de4b68671",
+		"name": "Autohaus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20792887"
+	},
+	"item": [
+		{
+			"name": "Read all Auto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/auto/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"auto",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Auto with ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/auto/auto?id=2c9687b1-b5a5-42bc-a376-357fc77a8fea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"auto",
+						"auto"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2c9687b1-b5a5-42bc-a376-357fc77a8fea"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Auto with unknown ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/auto/auto?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"auto",
+						"auto"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all Autohaus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"autohaus",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Autohaus with ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/autohaus?id=699a7440-c308-4ce8-a497-40864a2f0143",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"autohaus",
+						"autohaus"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "699a7440-c308-4ce8-a497-40864a2f0143"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Autohaus with unknown ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/autohaus?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"autohaus",
+						"autohaus"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all Kontaktperson",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"kontaktperson",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Kontaktperson with ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/kontaktperson?id=50377991-3b45-4d6c-abdd-c28d9351963a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"kontaktperson",
+						"kontaktperson"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "50377991-3b45-4d6c-abdd-c28d9351963a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Kontaktperson with unknown ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/kontaktperson?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"kontaktperson",
+						"kontaktperson"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/user/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"user",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read User with ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/user/user?id=f4d9cfb5-e680-4334-ad7a-719d51cf3f43",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"user",
+						"user"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "f4d9cfb5-e680-4334-ad7a-719d51cf3f43"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read User with unknown ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/user/user?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AutohausEE-1.0",
+						"resource",
+						"user",
+						"user"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

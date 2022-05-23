@@ -14,7 +14,7 @@ import java.util.Set;
  * Configure the web services and properties
  *
  * @author Albin Smrqaku
- * @since 2022-05-19
+ * @since 2022-05-23
  * @version 1.1
  *
  */
@@ -23,7 +23,9 @@ import java.util.Set;
 @ApplicationPath("/resource")
 
 public class Config extends Application {
-    private static final String PROPERTIES_PATH = "C:\\Users\\smrqa\\Desktop\\Elbin\\Lehre\\BZZ\\Berufsschule\\Modul133\\Autohaus\\src\\main\\webapp\\autohaus.properties";
+    private static final String PROPERTIES_PATH =
+            "C:\\Users\\smrqa\\Desktop\\Elbin\\Lehre\\BZZ\\" +
+            "Berufsschule\\Modul133\\Autohaus\\src\\main\\webapp\\autohaus.properties";
     private static Properties properties = null;
     /**
      * define all provider classes

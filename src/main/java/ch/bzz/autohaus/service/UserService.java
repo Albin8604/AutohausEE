@@ -1,7 +1,6 @@
 package ch.bzz.autohaus.service;
 
 import ch.bzz.autohaus.data.DataHandler;
-import ch.bzz.autohaus.model.Kontaktperson;
 import ch.bzz.autohaus.model.User;
 
 import javax.ws.rs.GET;
@@ -16,7 +15,7 @@ import java.util.List;
  * Webservice for Operations with the User class
  *
  * @author Albin Smrqaku
- * @since 2022-05-19
+ * @since 2022-05-23
  * @version 1.0
  *
  */
@@ -45,19 +44,28 @@ public class UserService {
      * Delivers a user with a specific uuid
      *
      * @param id uuid of the user
-     * @return Response with Status OK and the user
+     * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the user
      *
      */
-
     @GET
     @Path("user")
     @Produces(MediaType.APPLICATION_JSON)
     public Response idKontaktperson(
             @QueryParam("id") String id
     ) {
-        User user = DataHandler.getInstance().readUserByUUID(id);
+        User user = null;
+        int httpStatus = 200;
+
+        try {
+            user = DataHandler.getInstance().readUserByUUID(id);
+            if (user == null) {
+                httpStatus = 404;
+            }
+        } catch (Exception exception) {
+            httpStatus = 400;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(user)
                 .build();
     }
