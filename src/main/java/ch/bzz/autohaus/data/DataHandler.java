@@ -5,9 +5,16 @@ import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
 import ch.bzz.autohaus.model.User;
 import ch.bzz.autohaus.service.Config;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -17,8 +24,6 @@ import java.util.List;
  * Reads and writes the data in the JSON-files
  *
  * @author Albin Smrqaku
- * @since 2022-05-23
- * @version 1.0
  *
  */
 
@@ -35,11 +40,11 @@ public class DataHandler {
     private DataHandler() {
         setUserList(new ArrayList<>());
         readUserJSON();
-        setautoList(new ArrayList<>());
+        setAutoList(new ArrayList<>());
         readAutoJSON();
         setKontaktpersonList(new ArrayList<>());
         readKontaktpersonJSON();
-        setautohausList(new ArrayList<>());
+        setAutohausList(new ArrayList<>());
         readAutohausJSON();
     }
 
@@ -54,6 +59,15 @@ public class DataHandler {
         return instance;
     }
 
+    /**
+     * clears the lists
+     */
+    public void clearLists() {
+        getUserList().clear();
+        getAutoList().clear();
+        getKontaktpersonlist().clear();
+        getAutohausList().clear();
+    }
 
     /**
      * reads all Autos
@@ -61,7 +75,7 @@ public class DataHandler {
      * @return list of Autos
      */
     public List<Auto> readAllAutos() {
-        return getautoList();
+        return getAutoList();
     }
 
     /**
@@ -72,12 +86,45 @@ public class DataHandler {
      */
     public Auto readAutoByUUID(String autoUUID) {
         Auto auto = null;
-        for (Auto entry : getautoList()) {
+        for (Auto entry : getAutoList()) {
             if (entry.getAutoUUID().equals(autoUUID)) {
                 auto = entry;
             }
         }
         return auto;
+    }
+
+    /**
+     * inserts a new auto into the autoList
+     *
+     * @param auto the auto to be saved
+     */
+    public void insertAuto(Auto auto) {
+        getAutoList().add(auto);
+        writeAutoJSON();
+    }
+
+    /**
+     * updates the autoList
+     */
+    public void updateAuto() {
+        writeAutoJSON();
+    }
+
+    /**
+     * deletes an auto identified by the UUID
+     *
+     * @param autoUUID the key
+     * @return success=true/false
+     */
+    public boolean deleteAuto(String autoUUID) {
+        Auto auto = readAutoByUUID(autoUUID);
+        if (auto != null) {
+            getAutoList().remove(auto);
+            writeAutoJSON();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -87,7 +134,7 @@ public class DataHandler {
      */
     public List<Autohaus> readAllAutohaus() {
 
-        return getautohausList();
+        return getAutohausList();
     }
 
     /**
@@ -98,12 +145,45 @@ public class DataHandler {
      */
     public Autohaus readAutohausByUUID(String autohausUUID) {
         Autohaus autohaus = null;
-        for (Autohaus entry : getautohausList()) {
+        for (Autohaus entry : getAutohausList()) {
             if (entry.getAutohausUUID().equals(autohausUUID)) {
                 autohaus = entry;
             }
         }
         return autohaus;
+    }
+
+    /**
+     * inserts a new autohaus into the autohausList
+     *
+     * @param autohaus the autohaus to be saved
+     */
+    public void insertAutohaus(Autohaus autohaus) {
+        getAutohausList().add(autohaus);
+        writeAutohausJSON();
+    }
+
+    /**
+     * updates the autohausList
+     */
+    public void updateAutohaus() {
+        writeAutohausJSON();
+    }
+
+    /**
+     * deletes an autohaus identified by the UUID
+     *
+     * @param autohausUUID the key
+     * @return success=true/false
+     */
+    public boolean deleteAutohaus(String autohausUUID) {
+        Autohaus autohaus = readAutohausByUUID(autohausUUID);
+        if (autohaus != null) {
+            getAutohausList().remove(autohaus);
+            writeAutohausJSON();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -133,6 +213,39 @@ public class DataHandler {
     }
 
     /**
+     * inserts a new kontaktperson into the kontaktpersonList
+     *
+     * @param kontaktperson the kontaktperson to be saved
+     */
+    public void insertKontaktperson(Kontaktperson kontaktperson) {
+        getKontaktpersonlist().add(kontaktperson);
+        writeKontaktpersonJSON();
+    }
+
+    /**
+     * updates the kontaktpersonList
+     */
+    public void updateKontaktperson() {
+        writeKontaktpersonJSON();
+    }
+
+    /**
+     * deletes an kontaktperson identified by the UUID
+     *
+     * @param kontaktpersonUUID the key
+     * @return success=true/false
+     */
+    public boolean deleteKontaktperson(String kontaktpersonUUID) {
+        Kontaktperson kontaktperson = readKontaktpersonByUUID(kontaktpersonUUID);
+        if (kontaktperson != null) {
+            getKontaktpersonlist().remove(kontaktperson);
+            writeKontaktpersonJSON();
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * reads all User
      *
      * @return list of User
@@ -159,6 +272,23 @@ public class DataHandler {
     }
 
     /**
+     * inserts a new user into the userList
+     *
+     * @param user the user to be saved
+     */
+    public void insertUser(User user) {
+        getUserList().add(user);
+        writeUserJSON();
+    }
+
+    /**
+     * updates the userList
+     */
+    public void updateUser() {
+        writeUserJSON();
+    }
+
+    /**
      * reads the Autos from the JSON-file
      */
     private void readAutoJSON() {
@@ -170,8 +300,27 @@ public class DataHandler {
             ObjectMapper objectMapper = new ObjectMapper();
             Auto[] Autos = objectMapper.readValue(jsonData, Auto[].class);
             for (Auto Auto : Autos) {
-                getautoList().add(Auto);
+                getAutoList().add(Auto);
             }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * writes the autoList to the JSON-file
+     */
+    private void writeAutoJSON() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
+        FileOutputStream fileOutputStream = null;
+        Writer fileWriter;
+
+        String pathToJson = Config.getProperty("autoJSON");
+        try {
+            fileOutputStream = new FileOutputStream(pathToJson);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
+            objectWriter.writeValue(fileWriter, getAutoList());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -190,8 +339,27 @@ public class DataHandler {
             ObjectMapper objectMapper = new ObjectMapper();
             Autohaus[] autohaeuser = objectMapper.readValue(jsonData, Autohaus[].class);
             for (Autohaus autohaus : autohaeuser) {
-                getautohausList().add(autohaus);
+                getAutohausList().add(autohaus);
             }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * writes the autohausList to the JSON-file
+     */
+    private void writeAutohausJSON() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
+        FileOutputStream fileOutputStream = null;
+        Writer fileWriter;
+
+        String pathToJson = Config.getProperty("autohausJSON");
+        try {
+            fileOutputStream = new FileOutputStream(pathToJson);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
+            objectWriter.writeValue(fileWriter, getAutohausList());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -218,6 +386,25 @@ public class DataHandler {
     }
 
     /**
+     * writes the kontaktpersonList to the JSON-file
+     */
+    private void writeKontaktpersonJSON() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
+        FileOutputStream fileOutputStream = null;
+        Writer fileWriter;
+
+        String pathToJson = Config.getProperty("kontaktpersonJSON");
+        try {
+            fileOutputStream = new FileOutputStream(pathToJson);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
+            objectWriter.writeValue(fileWriter, getKontaktpersonlist());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
      * reads the Users from the JSON-file
      */
     private void readUserJSON() {
@@ -238,11 +425,31 @@ public class DataHandler {
     }
 
     /**
+     * writes the userList to the JSON-file
+     */
+    private void writeUserJSON() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
+        FileOutputStream fileOutputStream = null;
+        Writer fileWriter;
+
+        String pathToJson = Config.getProperty("userJSON");
+        try {
+            fileOutputStream = new FileOutputStream(pathToJson);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
+            objectWriter.writeValue(fileWriter, getUserList());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    /**
      * gets autoList
      *
      * @return value of autoList
      */
-    private List<Auto> getautoList() {
+    private List<Auto> getAutoList() {
         return autoList;
     }
 
@@ -251,7 +458,7 @@ public class DataHandler {
      *
      * @param autoList the value to set
      */
-    private void setautoList(List<Auto> autoList) {
+    private void setAutoList(List<Auto> autoList) {
         this.autoList = autoList;
     }
 
@@ -260,7 +467,7 @@ public class DataHandler {
      *
      * @return value of autohausList
      */
-    private List<Autohaus> getautohausList() {
+    private List<Autohaus> getAutohausList() {
         return autohausList;
     }
 
@@ -269,7 +476,7 @@ public class DataHandler {
      *
      * @param autohausList the value to set
      */
-    private void setautohausList(List<Autohaus> autohausList) {
+    private void setAutohausList(List<Autohaus> autohausList) {
         this.autohausList = autohausList;
     }
 

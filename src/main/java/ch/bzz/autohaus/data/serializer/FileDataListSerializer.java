@@ -11,8 +11,6 @@ import java.util.List;
  * Serializer from List<Byte[]> to a base64 string
  *
  * @author Albin Smrqaku
- * @since 2022-05-23
- * @version 1.0
  *
  */
 public class FileDataListSerializer extends JsonSerializer<List<Byte[]>> {
@@ -27,6 +25,12 @@ public class FileDataListSerializer extends JsonSerializer<List<Byte[]>> {
     @Override
     public void serialize(List<Byte[]> bytes, JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
-        //TODO in Milestone 02
+        jsonGenerator.writeStartObject();
+
+        for (Byte[] fileData : bytes) {
+            jsonGenerator.writeObject(FileDataSerializer.byteArrayToBase64String(fileData));
+        }
+
+        jsonGenerator.writeEndObject();
     }
 }

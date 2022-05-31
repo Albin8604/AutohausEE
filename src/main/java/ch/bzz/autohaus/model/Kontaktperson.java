@@ -7,28 +7,52 @@ import ch.bzz.autohaus.data.serializer.LocalDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.ws.rs.FormParam;
 import java.time.LocalDate;
 
 /**
  * Model class of Kontaktperson
  *
  * @author Albin Smrqaku
- * @since 2022-05-23
- * @version 1.0
  *
  */
 
 public class Kontaktperson {
+    @FormParam("id")
+    @Pattern(regexp = "^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$\n")
     private String kontaktpersonUUID;
+    @FormParam("nachname")
+    @NotNull
+    @Size(min = 3,max = 30)
     private String nachname;
+    @FormParam("vorname")
+    @NotNull
+    @Size(min = 3,max = 30)
     private String vorname;
+    @FormParam("email")
+    @NotNull
+    @Email
     private String email;
+    @FormParam("tel")
+    @NotNull
+    @Pattern(regexp = "[\\+][0-9]{1,3}\\s[0-9]{3}\\s[0-9]{2}\\s[0-9]{2}")
     private String tel;
 
+    @FormParam("bild")
+    @NotNull
     @JsonDeserialize(using = FileDataDeserializer.class)
     @JsonSerialize(using = FileDataSerializer.class)
     private Byte[] bild;
 
+    @FormParam("gebDat")
+    @NotNull
+    @Size(min = 10, max = 10)
+    @Past
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate gebDat;

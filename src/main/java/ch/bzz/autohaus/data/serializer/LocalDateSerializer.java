@@ -12,8 +12,6 @@ import java.time.format.DateTimeFormatter;
  * Serializer of localdate to json
  *
  * @author Albin Smrqaku
- * @since 2022-05-23
- * @version 1.0
  *
  */
 public class LocalDateSerializer extends JsonSerializer<LocalDate> {

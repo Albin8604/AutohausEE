@@ -15,8 +15,6 @@ import java.util.List;
  * Webservice for Operations with the Kontaktperson class
  *
  * @author Albin Smrqaku
- * @since 2022-05-23
- * @version 1.0
  *
  */
 @Path("kontaktperson")

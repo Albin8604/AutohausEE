@@ -6,6 +6,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.NumberDeserializers;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.ws.rs.FormParam;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,24 +20,53 @@ import java.util.List;
  * Model class of Auto
  *
  * @author Albin Smrqaku
- * @since 2022-05-23
- * @version 1.0
- *
  */
 
 public class Auto {
+    @FormParam("id")
+    @Pattern(regexp = "^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$\n")
     private String autoUUID;
+    @FormParam("marke")
+    @NotNull
+    @Size(min = 2, max = 15)
     private String marke;
+    @FormParam("modell")
+    @NotNull
+    @Size(min = 2, max = 30)
     private String modell;
+    @FormParam("farbcodeHex")
+    @NotNull
+    @Size(min = 4, max = 7)
     private String farbcodeHex;
+    @FormParam("farbcodeHex")
+    @NotNull
+    @Size(min = 3, max = 15)
     private String art;
+    @FormParam("ps")
+    @NotNull
+    @DecimalMin(value = "1")
+    @DecimalMax(value = "2500")
+    @Digits(integer = 4, fraction = 2)
     private Double ps;
+    @FormParam("nm")
+    @NotNull
+    @DecimalMin(value = "1")
+    @DecimalMax(value = "4000")
+    @Digits(integer = 4, fraction = 2)
     private Double nm;
+    @FormParam("occasion")
+    @NotNull
     private Boolean isOccasion;
 
+    @FormParam("preis")
+    @NotNull
+    @DecimalMin(value = "1")
+    @DecimalMax(value = "1000000")
+    @Digits(integer = 7, fraction = 2)
     @JsonDeserialize(using = NumberDeserializers.BigDecimalDeserializer.class)
     private BigDecimal preis;
 
+    @FormParam("bilder")
     @JsonDeserialize(using = FileDataListDeserializer.class)
     @JsonSerialize(using = FileDataListSerializer.class)
     private List<Byte[]> bilder;
@@ -43,16 +79,17 @@ public class Auto {
 
     /**
      * constructor
-     * @param autoUUID UUID of Auto
-     * @param marke marke of Auto
-     * @param modell modell of Auto
+     *
+     * @param autoUUID    UUID of Auto
+     * @param marke       marke of Auto
+     * @param modell      modell of Auto
      * @param farbcodeHex farbcodeHex of Auto
-     * @param art art of Auto
-     * @param ps ps of Auto
-     * @param nm nm of Auto
-     * @param isOccasion isOccasion of Auto
-     * @param preis preis of Auto
-     * @param bilder bilderList of Auto
+     * @param art         art of Auto
+     * @param ps          ps of Auto
+     * @param nm          nm of Auto
+     * @param isOccasion  isOccasion of Auto
+     * @param preis       preis of Auto
+     * @param bilder      bilderList of Auto
      */
     public Auto(String autoUUID,
                 String marke,

@@ -15,8 +15,6 @@ import java.util.List;
  * Deserializer of File data lists given in a base64 string list from json
  *
  * @author Albin Smrqaku
- * @since 2022-05-23
- * @version 1.0
  *
  */
 public class FileDataListDeserializer extends JsonDeserializer<List<Byte[]>> {

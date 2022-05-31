@@ -14,8 +14,6 @@ import java.util.Base64;
  * Deserializer of File data give in a base64 string from json
  *
  * @author Albin Smrqaku
- * @since 2022-05-23
- * @version 1.0
  *
  */
 

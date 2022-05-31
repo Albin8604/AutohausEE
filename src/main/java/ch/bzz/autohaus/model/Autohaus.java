@@ -9,6 +9,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.ws.rs.FormParam;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +22,11 @@ import java.util.List;
  * Model class of Autohaus
  *
  * @author Albin Smrqaku
- * @version 1.0
- * @since 2022-05-23
  */
 
 public class Autohaus {
+    @FormParam("id")
+    @Pattern(regexp = "^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$\n")
     private String autohausUUID;
     @JsonIgnore
     private List<Auto> autos;
@@ -30,11 +35,27 @@ public class Autohaus {
 
     @JsonIgnore
     private User inhaber;
+    @FormParam("strasse")
+    @NotNull
+    @Size(min = 3, max = 50)
     private String strasse;
+    @FormParam("nummer")
+    @NotNull
+    @Size(min = 3, max = 50)
     private String nummer;
+    @FormParam("ort")
+    @NotNull
+    @Size(min = 3, max = 50)
     private String ort;
+    @FormParam("plz")
+    @NotNull
+    @Size(min = 3, max = 50)
     private String plz;
 
+    @FormParam("gruendung")
+    @NotNull
+    @Size(min = 10, max = 10)
+    @PastOrPresent
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate gruendung;
@@ -48,15 +69,15 @@ public class Autohaus {
     /**
      * constructor
      *
-     * @param autohausUUID autohausUUID of Autohaus
-     * @param autos autos of Autohaus
+     * @param autohausUUID    autohausUUID of Autohaus
+     * @param autos           autos of Autohaus
      * @param kontaktpersonen kontaktpersonen of Autohaus
-     * @param inhaber inhaber of Autohaus
-     * @param strasse strasse of Autohaus
-     * @param nummer nummber of Autohaus
-     * @param ort ort of Autohaus
-     * @param plz plz of Autohaus
-     * @param gruendung gruendung of Autohaus
+     * @param inhaber         inhaber of Autohaus
+     * @param strasse         strasse of Autohaus
+     * @param nummer          nummber of Autohaus
+     * @param ort             ort of Autohaus
+     * @param plz             plz of Autohaus
+     * @param gruendung       gruendung of Autohaus
      */
     public Autohaus(String autohausUUID,
                     List<Auto> autos,
@@ -83,6 +104,7 @@ public class Autohaus {
      *
      * @param inhaberUUID the value to set
      */
+    @FormParam("inhaberUUID")
     public void setInhaberUUID(String inhaberUUID) {
         setInhaber(DataHandler.getInstance().readUserByUUID(inhaberUUID));
     }
@@ -92,7 +114,8 @@ public class Autohaus {
      *
      * @param autosUUID the value to set
      */
-    public void setAutosUUID(ArrayNode autosUUID){
+    @FormParam("autosUUID")
+    public void setAutosUUID(ArrayNode autosUUID) {
         setAutos(new ArrayList<>());
         for (JsonNode autoUUIDNode : autosUUID) {
             String autoUUID = autoUUIDNode.get("autoUUID").textValue();
@@ -105,7 +128,9 @@ public class Autohaus {
      *
      * @param kontaktpersonenUUID the value to set
      */
-    public void setKontaktpersonenUUID(ArrayNode kontaktpersonenUUID){
+    @FormParam("kontaktpersonenUUID")
+    @NotNull
+    public void setKontaktpersonenUUID(ArrayNode kontaktpersonenUUID) {
         setKontaktpersonen(new ArrayList<>());
         for (JsonNode kontaktpersonUUIDNode : kontaktpersonenUUID) {
             String kontaktpersonUUID = kontaktpersonUUIDNode.get("kontaktpersonUUID").textValue();

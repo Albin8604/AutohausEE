@@ -15,8 +15,6 @@ import java.util.List;
  * Webservice for Operations with the Autohaus class
  *
  * @author Albin Smrqaku
- * @version 1.0
- * @since 2022-05-23
  */
 
 @Path("autohaus")
