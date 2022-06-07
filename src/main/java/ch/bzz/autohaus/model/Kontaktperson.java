@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -24,22 +25,22 @@ import java.time.LocalDate;
 
 public class Kontaktperson {
     @FormParam("id")
-    @Pattern(regexp = "^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$\n")
+    @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89AB][0-9a-f]{3}-[0-9a-f]{12}$")
     private String kontaktpersonUUID;
     @FormParam("nachname")
-    @NotNull
+    @NotEmpty
     @Size(min = 3,max = 30)
     private String nachname;
     @FormParam("vorname")
-    @NotNull
+    @NotEmpty
     @Size(min = 3,max = 30)
     private String vorname;
     @FormParam("email")
-    @NotNull
+    @NotEmpty
     @Email
     private String email;
     @FormParam("tel")
-    @NotNull
+    @NotEmpty
     @Pattern(regexp = "[\\+][0-9]{1,3}\\s[0-9]{3}\\s[0-9]{2}\\s[0-9]{2}")
     private String tel;
 

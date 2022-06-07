@@ -25,12 +25,10 @@ public class FileDataListSerializer extends JsonSerializer<List<Byte[]>> {
     @Override
     public void serialize(List<Byte[]> bytes, JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeStartObject();
-
+        jsonGenerator.writeStartArray();
         for (Byte[] fileData : bytes) {
-            jsonGenerator.writeObject(FileDataSerializer.byteArrayToBase64String(fileData));
+            jsonGenerator.writeString(FileDataSerializer.byteArrayToBase64String(fileData));
         }
-
-        jsonGenerator.writeEndObject();
+        jsonGenerator.writeEndArray();
     }
 }

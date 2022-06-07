@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.deser.std.NumberDeserializers;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,22 +25,21 @@ import java.util.List;
 
 public class Auto {
     @FormParam("id")
-    @Pattern(regexp = "^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$\n")
+    @Pattern(regexp = "[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89AB][0-9a-f]{3}-[0-9a-f]{12}")
     private String autoUUID;
     @FormParam("marke")
-    @NotNull
+    @NotEmpty
     @Size(min = 2, max = 15)
     private String marke;
     @FormParam("modell")
-    @NotNull
+    @NotEmpty
     @Size(min = 2, max = 30)
     private String modell;
     @FormParam("farbcodeHex")
-    @NotNull
-    @Size(min = 4, max = 7)
+    @Pattern(regexp = "#([0-9a-fA-F]{3}){1,2}")
     private String farbcodeHex;
-    @FormParam("farbcodeHex")
-    @NotNull
+    @FormParam("art")
+    @NotEmpty
     @Size(min = 3, max = 15)
     private String art;
     @FormParam("ps")

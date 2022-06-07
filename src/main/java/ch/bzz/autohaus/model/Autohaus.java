@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class Autohaus {
     @FormParam("id")
-    @Pattern(regexp = "^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$\n")
+    @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89AB][0-9a-f]{3}-[0-9a-f]{12}$")
     private String autohausUUID;
     @JsonIgnore
     private List<Auto> autos;
@@ -36,19 +37,19 @@ public class Autohaus {
     @JsonIgnore
     private User inhaber;
     @FormParam("strasse")
-    @NotNull
+    @NotEmpty
     @Size(min = 3, max = 50)
     private String strasse;
     @FormParam("nummer")
-    @NotNull
+    @NotEmpty
     @Size(min = 3, max = 50)
     private String nummer;
     @FormParam("ort")
-    @NotNull
+    @NotEmpty
     @Size(min = 3, max = 50)
     private String ort;
     @FormParam("plz")
-    @NotNull
+    @NotEmpty
     @Size(min = 3, max = 50)
     private String plz;
 
@@ -118,7 +119,7 @@ public class Autohaus {
     public void setAutosUUID(ArrayNode autosUUID) {
         setAutos(new ArrayList<>());
         for (JsonNode autoUUIDNode : autosUUID) {
-            String autoUUID = autoUUIDNode.get("autoUUID").textValue();
+            String autoUUID = autoUUIDNode.textValue();
             getAutos().add(DataHandler.getInstance().readAutoByUUID(autoUUID));
         }
     }
@@ -133,7 +134,7 @@ public class Autohaus {
     public void setKontaktpersonenUUID(ArrayNode kontaktpersonenUUID) {
         setKontaktpersonen(new ArrayList<>());
         for (JsonNode kontaktpersonUUIDNode : kontaktpersonenUUID) {
-            String kontaktpersonUUID = kontaktpersonUUIDNode.get("kontaktpersonUUID").textValue();
+            String kontaktpersonUUID = kontaktpersonUUIDNode.textValue();
             getKontaktpersonen().add(DataHandler.getInstance().readKontaktpersonByUUID(kontaktpersonUUID));
         }
     }

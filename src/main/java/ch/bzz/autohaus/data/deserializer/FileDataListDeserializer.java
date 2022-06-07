@@ -37,7 +37,7 @@ public class FileDataListDeserializer extends JsonDeserializer<List<Byte[]>> {
         List<Byte[]> result = new ArrayList<>();
 
         for (JsonNode node : nodes) {
-            result.add(FileDataDeserializer.base64ToByteArray(node.get("bild").textValue()));
+            result.add(FileDataDeserializer.base64ToByteArray(node.textValue()));
         }
 
         return result;

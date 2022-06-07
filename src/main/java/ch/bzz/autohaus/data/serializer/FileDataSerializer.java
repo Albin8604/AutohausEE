@@ -29,7 +29,7 @@ public class FileDataSerializer extends JsonSerializer<Byte[]> {
                           JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeObject(byteArrayToBase64String(bytes));
+        jsonGenerator.writeString(byteArrayToBase64String(bytes));
         jsonGenerator.writeEndObject();
     }
 

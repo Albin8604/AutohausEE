@@ -1,6 +1,11 @@
 package ch.bzz.autohaus.model;
 
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.ws.rs.FormParam;
+
 /**
  * Model class of User
  *
@@ -9,9 +14,20 @@ package ch.bzz.autohaus.model;
  */
 
 public class User {
+    @FormParam("id")
+    @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89AB][0-9a-f]{3}-[0-9a-f]{12}$")
     private String userUUID;
+    @FormParam("userName")
+    @NotEmpty
+    @Size(min = 3,max = 30)
     private String userName;
+    @FormParam("password")
+    @NotEmpty
+    @Size(min = 8,max = 30)
     private String password;
+    @FormParam("userRole")
+    @NotEmpty
+    @Size(min = 3,max = 30)
     private String userRole;
 
     /**
