@@ -1,5 +1,6 @@
 package ch.bzz.autohaus.model;
 
+import ch.bzz.autohaus.data.deserializer.FileDataDeserializer;
 import ch.bzz.autohaus.data.deserializer.FileDataListDeserializer;
 import ch.bzz.autohaus.data.serializer.FileDataListSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -15,6 +16,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ import java.util.List;
 
 public class Auto {
     @FormParam("id")
-    @Pattern(regexp = "[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89AB][0-9a-f]{3}-[0-9a-f]{12}")
+    @Pattern(regexp = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89AB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}")
     private String autoUUID;
     @FormParam("marke")
     @NotEmpty
@@ -66,7 +68,6 @@ public class Auto {
     @JsonDeserialize(using = NumberDeserializers.BigDecimalDeserializer.class)
     private BigDecimal preis;
 
-    @FormParam("bilder")
     @JsonDeserialize(using = FileDataListDeserializer.class)
     @JsonSerialize(using = FileDataListSerializer.class)
     private List<Byte[]> bilder;
@@ -111,6 +112,16 @@ public class Auto {
         this.isOccasion = isOccasion;
         this.preis = preis;
         this.bilder = bilder;
+    }
+
+    @FormParam("bilder")
+    public void setBilderFromBase64(List<String> bilderBase64){
+        if (this.bilder == null){
+            bilder = new ArrayList<>();
+        }
+        for (String base64 : bilderBase64) {
+            this.bilder.add(FileDataDeserializer.base64ToByteArray(base64));
+        }
     }
 
     /**
