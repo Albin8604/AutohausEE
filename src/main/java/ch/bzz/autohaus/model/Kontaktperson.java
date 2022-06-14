@@ -15,12 +15,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Model class of Kontaktperson
  *
  * @author Albin Smrqaku
- *
  */
 
 public class Kontaktperson {
@@ -29,11 +30,11 @@ public class Kontaktperson {
     private String kontaktpersonUUID;
     @FormParam("nachname")
     @NotEmpty
-    @Size(min = 3,max = 30)
+    @Size(min = 3, max = 30)
     private String nachname;
     @FormParam("vorname")
     @NotEmpty
-    @Size(min = 3,max = 30)
+    @Size(min = 3, max = 30)
     private String vorname;
     @FormParam("email")
     @NotEmpty
@@ -44,8 +45,6 @@ public class Kontaktperson {
     @Pattern(regexp = "[\\+][0-9]{1,3}\\s[0-9]{3}\\s[0-9]{2}\\s[0-9]{2}")
     private String tel;
 
-    @FormParam("bild")
-    @NotNull
     @JsonDeserialize(using = FileDataDeserializer.class)
     @JsonSerialize(using = FileDataSerializer.class)
     private Byte[] bild;
@@ -68,12 +67,12 @@ public class Kontaktperson {
      * constructor
      *
      * @param kontaktpersonUUID kontaktpersonUUID of Kontaktperson
-     * @param nachname nachname of Kontaktperson
-     * @param vorname vorname of Kontaktperson
-     * @param email email of Kontaktperson
-     * @param tel tel of Kontaktperson
-     * @param bild bild of Kontaktperson
-     * @param gebDat gebDat of Kontaktperson
+     * @param nachname          nachname of Kontaktperson
+     * @param vorname           vorname of Kontaktperson
+     * @param email             email of Kontaktperson
+     * @param tel               tel of Kontaktperson
+     * @param bild              bild of Kontaktperson
+     * @param gebDat            gebDat of Kontaktperson
      */
     public Kontaktperson(String kontaktpersonUUID,
                          String nachname,
@@ -89,6 +88,17 @@ public class Kontaktperson {
         this.tel = tel;
         this.bild = bild;
         this.gebDat = gebDat;
+    }
+
+    /**
+     * sets Bild from Base64 String getting from the form
+     *
+     * @param bildBase64 Base64 String getting from the request
+     */
+    @FormParam("bild")
+    @NotNull
+    public void setBildFromBase64(String bildBase64) {
+        this.bild = FileDataDeserializer.base64ToByteArray(bildBase64);
     }
 
     /**

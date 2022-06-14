@@ -114,6 +114,11 @@ public class Auto {
         this.bilder = bilder;
     }
 
+    /**
+     * sets Bilder from Base64 Strings getting from the form
+     *
+     * @param bilderBase64 Base64 Strings getting from the request
+     */
     @FormParam("bilder")
     public void setBilderFromBase64(List<String> bilderBase64){
         if (this.bilder == null){
