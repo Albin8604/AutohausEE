@@ -1,15 +1,23 @@
 package ch.bzz.autohaus.service;
 
 import ch.bzz.autohaus.data.DataHandler;
+import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
 
+import javax.validation.Valid;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Webservice for Operations with the Kontaktperson class
@@ -65,5 +73,126 @@ public class KontaktpersonService {
                 .status(httpStatus)
                 .entity(kontaktperson)
                 .build();
+    }
+
+    /**
+     * Creates an kontaktperson
+     *
+     * @param kontaktperson kontaktperson BeanParam
+     * @return Response with Status 200 or 400
+     */
+    @POST
+    @Path("create")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createKontaktperson(
+            @Valid @BeanParam Kontaktperson kontaktperson
+    ) {
+        int httpStatus = 200;
+
+        kontaktperson.setKontaktpersonUUID(UUID.randomUUID().toString());
+
+        try {
+            DataHandler.getInstance().insertKontaktperson(kontaktperson);
+        } catch (Exception exception) {
+            httpStatus = 400;
+        }
+        return Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+    }
+
+    /**
+     * updates an kontaktperson
+     *
+     * @param kontaktperson kontaktperson BeanParam
+     * @return Response with Status 200, 400 or 410
+     */
+    @PUT
+    @Path("update")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateKontaktperson(
+            @Valid @BeanParam Kontaktperson kontaktperson
+    ) {
+        int httpStatus = 200;
+
+        try {
+            Kontaktperson kontaktpersonToBeUpdated = DataHandler.getInstance().readKontaktpersonByUUID(kontaktperson.getKontaktpersonUUID());
+            if (kontaktpersonToBeUpdated != null) {
+                setAttributes(kontaktpersonToBeUpdated, kontaktperson);
+
+                DataHandler.getInstance().updateKontaktperson();
+            } else {
+                httpStatus = 410;
+            }
+        } catch (Exception exception) {
+            httpStatus = 400;
+        }
+        return Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+    }
+
+    /**
+     * Deletes an kontaktperson identified by its uuid
+     *
+     * @param id uuid of the kontaktperson
+     * @return Response
+     */
+    @DELETE
+    @Path("delete")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteKontaktperson(
+            @QueryParam("id") String id
+    ) {
+        int httpStatus = 200;
+
+        try {
+            if (!DataHandler.getInstance().deleteKontaktperson(id)) {
+                httpStatus = 410;
+            }
+        } catch (Exception exception) {
+            httpStatus = 400;
+        }
+        return Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+    }
+
+    /**
+     * sets the attributes for the kontaktperson-object
+     *
+     * @param kontaktperson             the kontaktperson-object
+     * @param kontaktpersonToBeCopiedOf the kontaktperson-object that the attributes should be taken of
+     */
+    private void setAttributes(
+            Kontaktperson kontaktperson,
+            Kontaktperson kontaktpersonToBeCopiedOf
+    ) {
+        if (!kontaktperson.getNachname().equals(kontaktpersonToBeCopiedOf.getNachname())) {
+            kontaktperson.setNachname(kontaktpersonToBeCopiedOf.getNachname());
+        }
+
+        if (!kontaktperson.getVorname().equals(kontaktpersonToBeCopiedOf.getVorname())) {
+            kontaktperson.setVorname(kontaktpersonToBeCopiedOf.getVorname());
+        }
+
+        if (!kontaktperson.getEmail().equals(kontaktpersonToBeCopiedOf.getEmail())) {
+            kontaktperson.setEmail(kontaktpersonToBeCopiedOf.getEmail());
+        }
+
+        if (!kontaktperson.getTel().equals(kontaktpersonToBeCopiedOf.getTel())) {
+            kontaktperson.setTel(kontaktpersonToBeCopiedOf.getTel());
+        }
+
+        if (!Arrays.equals(kontaktperson.getBild(), kontaktpersonToBeCopiedOf.getBild())) {
+            kontaktperson.setBild(kontaktpersonToBeCopiedOf.getBild());
+        }
+
+        if (!kontaktperson.getGebDat().equals(kontaktpersonToBeCopiedOf.getGebDat())) {
+            kontaktperson.setGebDat(kontaktpersonToBeCopiedOf.getGebDat());
+        }
     }
 }

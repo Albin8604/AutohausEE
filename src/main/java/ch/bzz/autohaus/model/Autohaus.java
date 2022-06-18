@@ -1,5 +1,6 @@
 package ch.bzz.autohaus.model;
 
+import ch.bzz.autohaus.Helper;
 import ch.bzz.autohaus.data.DataHandler;
 import ch.bzz.autohaus.data.deserializer.LocalDateDeserializer;
 import ch.bzz.autohaus.data.serializer.LocalDateSerializer;
@@ -16,6 +17,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ import java.util.List;
 
 public class Autohaus {
     @FormParam("id")
-    @Pattern(regexp = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89AB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}")
+    @Pattern(regexp = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}")
     private String autohausUUID;
     @JsonIgnore
     private List<Auto> autos;
@@ -53,10 +55,6 @@ public class Autohaus {
     @Size(min = 3, max = 50)
     private String plz;
 
-    @FormParam("gruendung")
-    @NotNull
-    @Size(min = 10, max = 10)
-    @PastOrPresent
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate gruendung;
@@ -101,7 +99,19 @@ public class Autohaus {
     }
 
     /**
-     * sets ingaberUUID -> In use because of JSON
+     * sets gruendung
+     */
+    @FormParam("gruendung")
+    public void setGruendungFromRequest(String gruendungFromRequest) {
+        LocalDate gruendung = Helper.getInstance().textToLocalDate(gruendungFromRequest);
+        if (gruendung.isBefore(LocalDate.now()) || gruendung.isEqual(LocalDate.now())){
+            setGruendung(gruendung);
+        }
+    }
+
+
+    /**
+     * sets inhaberUUID
      *
      * @param inhaberUUID the value to set
      */
@@ -111,32 +121,34 @@ public class Autohaus {
     }
 
     /**
-     * sets autosUUID -> In use because of JSON
+     * sets autosUUID
      *
      * @param autosUUID the value to set
      */
     @FormParam("autosUUID")
-    public void setAutosUUID(ArrayNode autosUUID) {
+    public void setAutosUUID(List<String> autosUUID) {
         setAutos(new ArrayList<>());
-        for (JsonNode autoUUIDNode : autosUUID) {
-            String autoUUID = autoUUIDNode.textValue();
+        for (String autoUUID : autosUUID) {
             getAutos().add(DataHandler.getInstance().readAutoByUUID(autoUUID));
         }
     }
 
     /**
-     * sets kontaktpersonenUUID -> In use because of JSON
+     * sets kontaktpersonenUUID
      *
      * @param kontaktpersonenUUID the value to set
      */
     @FormParam("kontaktpersonenUUID")
     @NotNull
-    public void setKontaktpersonenUUID(ArrayNode kontaktpersonenUUID) {
+    public List<Kontaktperson> setKontaktpersonenUUID(List<String> kontaktpersonenUUID) {
+        if (kontaktpersonenUUID.isEmpty()) {
+            return null;
+        }
         setKontaktpersonen(new ArrayList<>());
-        for (JsonNode kontaktpersonUUIDNode : kontaktpersonenUUID) {
-            String kontaktpersonUUID = kontaktpersonUUIDNode.textValue();
+        for (String kontaktpersonUUID : kontaktpersonenUUID) {
             getKontaktpersonen().add(DataHandler.getInstance().readKontaktpersonByUUID(kontaktpersonUUID));
         }
+        return getKontaktpersonen();
     }
 
     /**

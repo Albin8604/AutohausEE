@@ -1,5 +1,6 @@
 package ch.bzz.autohaus.data.deserializer;
 
+import ch.bzz.autohaus.Helper;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -17,8 +18,6 @@ import java.time.format.DateTimeFormatter;
  *
  */
 public class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
-    //Pattern of String
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     /**
      * Deserializes localdate from text
@@ -31,6 +30,6 @@ public class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
     public LocalDate deserialize(JsonParser jsonParser,
                                  DeserializationContext deserializationContext) throws IOException, JacksonException {
         TextNode node = jsonParser.getCodec().readTree(jsonParser);
-        return node.textValue().isEmpty() ? null : LocalDate.parse(node.textValue(),FORMATTER);
+        return node.textValue().isEmpty() ? null : Helper.getInstance().textToLocalDate(node.textValue());
     }
 }

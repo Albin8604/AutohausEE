@@ -24,7 +24,6 @@ import java.util.List;
  * Reads and writes the data in the JSON-files
  *
  * @author Albin Smrqaku
- *
  */
 
 public class DataHandler {
@@ -286,6 +285,22 @@ public class DataHandler {
      */
     public void updateUser() {
         writeUserJSON();
+    }
+
+    /**
+     * deletes a user identified by the UUID
+     *
+     * @param userUUID the key
+     * @return success=true/false
+     */
+    public boolean deleteUser(String userUUID) {
+        User user = readUserByUUID(userUUID);
+        if (user != null) {
+            getUserList().remove(user);
+            writeUserJSON();
+            return true;
+        }
+        return false;
     }
 
     /**

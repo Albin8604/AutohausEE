@@ -1,5 +1,6 @@
 package ch.bzz.autohaus.data.serializer;
 
+import ch.bzz.autohaus.Helper;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -15,8 +16,6 @@ import java.time.format.DateTimeFormatter;
  *
  */
 public class LocalDateSerializer extends JsonSerializer<LocalDate> {
-    //Pattern of String
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     /**
      * Serializes localdate
@@ -30,7 +29,7 @@ public class LocalDateSerializer extends JsonSerializer<LocalDate> {
                           JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeString(localDate.format(FORMATTER));
+        jsonGenerator.writeString(Helper.getInstance().localDateToText(localDate));
         jsonGenerator.writeEndObject();
     }
 }
