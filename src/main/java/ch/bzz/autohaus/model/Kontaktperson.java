@@ -1,5 +1,6 @@
 package ch.bzz.autohaus.model;
 
+import ch.bzz.autohaus.Helper;
 import ch.bzz.autohaus.data.deserializer.FileDataDeserializer;
 import ch.bzz.autohaus.data.deserializer.LocalDateDeserializer;
 import ch.bzz.autohaus.data.serializer.FileDataSerializer;
@@ -10,7 +11,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
@@ -23,6 +23,8 @@ import java.time.LocalDate;
  */
 
 public class Kontaktperson {
+
+    private static final Integer MINDESTALTER = 18;
     @FormParam("id")
     @Pattern(regexp = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}")
     private String kontaktpersonUUID;
@@ -40,17 +42,13 @@ public class Kontaktperson {
     private String email;
     @FormParam("tel")
     @NotEmpty
-    @Pattern(regexp = "[\\+][0-9]{1,3}\\s[0-9]{3}\\s[0-9]{2}\\s[0-9]{2}")
+    @Pattern(regexp = "[0-9]{1,3}[0-9]{3}[0-9]{2}[0-9]{2}")
     private String tel;
 
     @JsonDeserialize(using = FileDataDeserializer.class)
     @JsonSerialize(using = FileDataSerializer.class)
     private Byte[] bild;
 
-    @FormParam("gebDat")
-    @NotNull
-    @Size(min = 10, max = 10)
-    @Past
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate gebDat;
@@ -89,14 +87,28 @@ public class Kontaktperson {
     }
 
     /**
+     * sets gebDat
+     */
+    @FormParam("gebDat")
+    @NotNull
+    public LocalDate setGebDatFromRequest(String gebDatFromRequest) {
+        LocalDate gebDat = Helper.getInstance().textToLocalDate(gebDatFromRequest);
+        if (gebDat.isBefore(LocalDate.now().minusYears(MINDESTALTER))){
+            setGebDat(gebDat);
+        }
+        return getGebDat();
+    }
+
+    /**
      * sets Bild from Base64 String getting from the form
      *
      * @param bildBase64 Base64 String getting from the request
      */
     @FormParam("bild")
     @NotNull
-    public void setBildFromBase64(String bildBase64) {
+    public Byte[] setBildFromBase64(String bildBase64) {
         this.bild = FileDataDeserializer.base64ToByteArray(bildBase64);
+        return getBild();
     }
 
     /**

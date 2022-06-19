@@ -28,8 +28,6 @@ public class LocalDateSerializer extends JsonSerializer<LocalDate> {
     public void serialize(LocalDate localDate,
                           JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeStartObject();
         jsonGenerator.writeString(Helper.getInstance().localDateToText(localDate));
-        jsonGenerator.writeEndObject();
     }
 }

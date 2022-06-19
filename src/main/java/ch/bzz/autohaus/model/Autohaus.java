@@ -5,19 +5,15 @@ import ch.bzz.autohaus.data.DataHandler;
 import ch.bzz.autohaus.data.deserializer.LocalDateDeserializer;
 import ch.bzz.autohaus.data.serializer.LocalDateSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +40,7 @@ public class Autohaus {
     private String strasse;
     @FormParam("nummer")
     @NotEmpty
-    @Size(min = 3, max = 50)
+    @Size(min = 1, max = 10)
     private String nummer;
     @FormParam("ort")
     @NotEmpty
@@ -52,7 +48,7 @@ public class Autohaus {
     private String ort;
     @FormParam("plz")
     @NotEmpty
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 15)
     private String plz;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -121,6 +117,15 @@ public class Autohaus {
     }
 
     /**
+     * gets inhaberUUID
+     *
+     * @return value of inhaberUUID
+     */
+    public String getInhaberUUID() {
+        return getInhaber().getUserUUID();
+    }
+
+    /**
      * sets autosUUID
      *
      * @param autosUUID the value to set
@@ -134,21 +139,42 @@ public class Autohaus {
     }
 
     /**
+     * gets autosUUID
+     *
+     * @return value of autosUUID
+     */
+    public List<String> getAutosUUID() {
+        List<String> autosUUID = new ArrayList<>();
+        for (Auto auto : getAutos()) {
+            autosUUID.add(auto.getAutoUUID());
+        }
+        return autosUUID;
+    }
+
+    /**
      * sets kontaktpersonenUUID
      *
      * @param kontaktpersonenUUID the value to set
      */
     @FormParam("kontaktpersonenUUID")
-    @NotNull
-    public List<Kontaktperson> setKontaktpersonenUUID(List<String> kontaktpersonenUUID) {
-        if (kontaktpersonenUUID.isEmpty()) {
-            return null;
-        }
+    public void setKontaktpersonenUUID(List<String> kontaktpersonenUUID) {
         setKontaktpersonen(new ArrayList<>());
         for (String kontaktpersonUUID : kontaktpersonenUUID) {
             getKontaktpersonen().add(DataHandler.getInstance().readKontaktpersonByUUID(kontaktpersonUUID));
         }
-        return getKontaktpersonen();
+    }
+
+    /**
+     * gets kontaktpersonenUUID
+     *
+     * @return value of kontaktpersonenUUID
+     */
+    public List<String> getKontaktpersonenUUID() {
+        List<String> kontaktpersonenUUID = new ArrayList<>();
+        for (Kontaktperson kontaktperson : getKontaktpersonen()) {
+            kontaktpersonenUUID.add(kontaktperson.getKontaktpersonUUID());
+        }
+        return kontaktpersonenUUID;
     }
 
     /**

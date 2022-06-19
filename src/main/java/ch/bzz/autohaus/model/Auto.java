@@ -48,16 +48,13 @@ public class Auto {
     @NotNull
     @DecimalMin(value = "1")
     @DecimalMax(value = "2500")
-    @Digits(integer = 4, fraction = 2)
     private Double ps;
     @FormParam("nm")
     @NotNull
     @DecimalMin(value = "1")
     @DecimalMax(value = "4000")
-    @Digits(integer = 4, fraction = 2)
     private Double nm;
     @FormParam("occasion")
-    @NotNull
     private Boolean isOccasion;
 
     @FormParam("preis")
@@ -121,11 +118,11 @@ public class Auto {
      */
     @FormParam("bilder")
     public void setBilderFromBase64(List<String> bilderBase64){
-        if (this.bilder == null){
-            bilder = new ArrayList<>();
-        }
-        for (String base64 : bilderBase64) {
-            this.bilder.add(FileDataDeserializer.base64ToByteArray(base64));
+        if (!bilderBase64.isEmpty()){
+            setBilder(new ArrayList<>());
+            for (String base64 : bilderBase64) {
+                getBilder().add(FileDataDeserializer.base64ToByteArray(base64));
+            }
         }
     }
 

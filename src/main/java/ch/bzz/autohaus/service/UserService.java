@@ -122,7 +122,7 @@ public class UserService {
             if (userToBeUpdated != null) {
                 setAttributes(userToBeUpdated, user);
 
-                DataHandler.getInstance().updateKontaktperson();
+                DataHandler.getInstance().updateUser();
             } else {
                 httpStatus = 410;
             }
