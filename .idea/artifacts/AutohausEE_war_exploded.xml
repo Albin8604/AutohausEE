@@ -9,6 +9,7 @@
       </options>
     </properties>
     <root id="root">
+      <element id="module-output" name="AutohausEE" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="AutohausEE" />
@@ -24,7 +25,6 @@
         <element id="file-copy" path="$PROJECT_DIR$/target/AutohausEE-1.0/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="AutohausEE/web/Web" />
-      <element id="module-output" name="AutohausEE" />
     </root>
   </artifact>
 </component>

@@ -7,6 +7,7 @@ import ch.bzz.autohaus.model.User;
 import javax.validation.Valid;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -156,6 +157,29 @@ public class UserService {
         } catch (Exception exception) {
             httpStatus = 400;
         }
+        return Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+    }
+
+    /**
+     * Logs a user in
+     *
+     * @param id uuid of the user
+     * @return Response
+     */
+    @POST
+    @Path("login")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response loginUser(
+            @FormParam("username") String username,
+            @FormParam("password") String password
+    ) {
+        int httpStatus = 200;
+
+
+
         return Response
                 .status(httpStatus)
                 .entity("")
