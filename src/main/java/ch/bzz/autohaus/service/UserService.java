@@ -1,5 +1,6 @@
 package ch.bzz.autohaus.service;
 
+import ch.bzz.autohaus.Helper;
 import ch.bzz.autohaus.data.DataHandler;
 import ch.bzz.autohaus.model.Kontaktperson;
 import ch.bzz.autohaus.model.User;
@@ -166,7 +167,8 @@ public class UserService {
     /**
      * Logs a user in
      *
-     * @param id uuid of the user
+     * @param username username of the user
+     * @param password password of the user
      * @return Response
      */
     @POST
@@ -177,12 +179,18 @@ public class UserService {
             @FormParam("password") String password
     ) {
         int httpStatus = 200;
-
-
+        User user = DataHandler.getInstance()
+                .readUserByLogin(username, password);
+        String role = "guest";
+        if (user != null){
+            role = user.getUserRole();
+        }else {
+            httpStatus = 401;
+        }
 
         return Response
                 .status(httpStatus)
-                .entity("")
+                .entity(role)
                 .build();
     }
 
