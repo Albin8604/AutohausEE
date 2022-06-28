@@ -1,6 +1,6 @@
 package ch.bzz.autohaus.data;
 
-import ch.bzz.autohaus.Helper;
+import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.model.Auto;
 import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
