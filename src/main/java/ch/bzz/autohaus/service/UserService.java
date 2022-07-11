@@ -314,7 +314,7 @@ public class UserService {
      * @return Response
      */
     @POST
-    @Path("login")
+    @Path("logout")
     @Produces(MediaType.TEXT_PLAIN)
     public Response logoutUser(
             @CookieParam("username") String encryptedUsername,
