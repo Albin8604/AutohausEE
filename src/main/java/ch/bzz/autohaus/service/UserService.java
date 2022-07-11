@@ -50,7 +50,11 @@ public class UserService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            userList = DataHandler.getInstance().readAllUser();
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)) {
+                userList = DataHandler.getInstance().readAllUser();
+            } else {
+                httpStatus = 403;
+            }
         } else {
             httpStatus = 401;
         }
@@ -83,13 +87,17 @@ public class UserService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                user = DataHandler.getInstance().readUserByUUID(id);
-                if (user == null) {
-                    httpStatus = 404;
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)) {
+                try {
+                    user = DataHandler.getInstance().readUserByUUID(id);
+                    if (user == null) {
+                        httpStatus = 404;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
@@ -208,7 +216,7 @@ public class UserService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            if (Helper.getInstance().isUserValidForDelete(loggedInUser)){
+            if (Helper.getInstance().isUserValidForDelete(loggedInUser)) {
                 try {
                     if (!DataHandler.getInstance().deleteUser(id)) {
                         httpStatus = 410;
@@ -216,7 +224,7 @@ public class UserService {
                 } catch (Exception exception) {
                     httpStatus = 400;
                 }
-            }else {
+            } else {
                 httpStatus = 403;
             }
         } else {

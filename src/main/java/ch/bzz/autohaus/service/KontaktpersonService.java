@@ -39,7 +39,7 @@ public class KontaktpersonService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listAutos(
+    public Response listKontaktpersonen(
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
@@ -49,7 +49,11 @@ public class KontaktpersonService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            kontaktpersonList = DataHandler.getInstance().readAllKontaktperson();
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)) {
+                kontaktpersonList = DataHandler.getInstance().readAllKontaktperson();
+            } else {
+                httpStatus = 403;
+            }
         } else {
             httpStatus = 401;
         }
@@ -82,13 +86,17 @@ public class KontaktpersonService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                kontaktperson = DataHandler.getInstance().readKontaktpersonByUUID(id);
-                if (kontaktperson == null) {
-                    httpStatus = 404;
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)) {
+                try {
+                    kontaktperson = DataHandler.getInstance().readKontaktpersonByUUID(id);
+                    if (kontaktperson == null) {
+                        httpStatus = 404;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;

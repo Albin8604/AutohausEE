@@ -172,6 +172,18 @@ public class Helper {
     }
 
     /**
+     * defines which roles are valid for reading of something and returns if the user is eligible to do it or not
+     * @param loggedInUser logged in user
+     * @return is user valid for reading
+     */
+    public boolean isUserValidForRead(User loggedInUser) {
+        final List<String> eligibleRoles = Arrays.asList("owner", "admin","guest");
+
+        return hasUserOneOfRoles(loggedInUser, eligibleRoles);
+    }
+
+
+    /**
      * defines which roles are valid for creation of something and returns if the user is eligible to do it or not
      * @param loggedInUser logged in user
      * @return is user valid for creation

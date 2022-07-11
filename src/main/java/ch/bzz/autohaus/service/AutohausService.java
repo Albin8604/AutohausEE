@@ -40,7 +40,7 @@ public class AutohausService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listAutos(
+    public Response listAutohaus(
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
@@ -50,7 +50,11 @@ public class AutohausService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            autohausList = DataHandler.getInstance().readAllAutohaus();
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)){
+                autohausList = DataHandler.getInstance().readAllAutohaus();
+            }else {
+                httpStatus = 403;
+            }
         } else {
             httpStatus = 401;
         }
@@ -84,13 +88,17 @@ public class AutohausService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                autohaus = DataHandler.getInstance().readAutohausByUUID(id);
-                if (autohaus == null) {
-                    httpStatus = 404;
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)){
+                try {
+                    autohaus = DataHandler.getInstance().readAutohausByUUID(id);
+                    if (autohaus == null) {
+                        httpStatus = 404;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            }else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;

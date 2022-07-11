@@ -49,7 +49,11 @@ public class AutoService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            autoList = DataHandler.getInstance().readAllAutos();
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)) {
+                autoList = DataHandler.getInstance().readAllAutos();
+            } else {
+                httpStatus = 403;
+            }
         } else {
             httpStatus = 401;
         }
@@ -83,13 +87,17 @@ public class AutoService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                auto = DataHandler.getInstance().readAutoByUUID(id);
-                if (auto == null) {
-                    httpStatus = 404;
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)) {
+                try {
+                    auto = DataHandler.getInstance().readAutoByUUID(id);
+                    if (auto == null) {
+                        httpStatus = 404;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
