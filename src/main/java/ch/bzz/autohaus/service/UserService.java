@@ -18,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,10 +44,19 @@ public class UserService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
-        List<User> userList = DataHandler.getInstance().readAllUser();
+        List<User> userList = Collections.emptyList();
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
+        int httpStatus = 200;
+
+        if (loggedInUser != null) {
+            userList = DataHandler.getInstance().readAllUser();
+        } else {
+            httpStatus = 401;
+        }
 
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(userList)
                 .build();
     }
@@ -54,7 +64,7 @@ public class UserService {
     /**
      * Delivers a user with a specific uuid
      *
-     * @param id uuid of the user
+     * @param id                uuid of the user
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the user
@@ -67,16 +77,22 @@ public class UserService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
         User user = null;
+
         int httpStatus = 200;
 
-        try {
-            user = DataHandler.getInstance().readUserByUUID(id);
-            if (user == null) {
-                httpStatus = 404;
+        if (loggedInUser != null) {
+            try {
+                user = DataHandler.getInstance().readUserByUUID(id);
+                if (user == null) {
+                    httpStatus = 404;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -87,7 +103,7 @@ public class UserService {
     /**
      * Creates a user
      *
-     * @param user user BeanParam
+     * @param user              user BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200 or 400
@@ -100,14 +116,20 @@ public class UserService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        user.setUserUUID(UUID.randomUUID().toString());
+        if (loggedInUser != null) {
+            user.setUserUUID(UUID.randomUUID().toString());
 
-        try {
-            DataHandler.getInstance().insertUser(user);
-        } catch (Exception exception) {
-            httpStatus = 400;
+            try {
+                DataHandler.getInstance().insertUser(user);
+            } catch (Exception exception) {
+                httpStatus = 400;
+            }
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -118,7 +140,7 @@ public class UserService {
     /**
      * updates a user
      *
-     * @param user user BeanParam
+     * @param user              user BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200, 400 or 410
@@ -131,19 +153,25 @@ public class UserService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            User userToBeUpdated = DataHandler.getInstance().readUserByUUID(user.getUserUUID());
-            if (userToBeUpdated != null) {
-                setAttributes(userToBeUpdated, user);
+        if (loggedInUser != null){
+            try {
+                User userToBeUpdated = DataHandler.getInstance().readUserByUUID(user.getUserUUID());
+                if (userToBeUpdated != null) {
+                    setAttributes(userToBeUpdated, user);
 
-                DataHandler.getInstance().updateUser();
-            } else {
-                httpStatus = 410;
+                    DataHandler.getInstance().updateUser();
+                } else {
+                    httpStatus = 410;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        }else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -154,7 +182,7 @@ public class UserService {
     /**
      * Deletes a user identified by its uuid
      *
-     * @param id uuid of the user
+     * @param id                uuid of the user
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response
@@ -167,14 +195,20 @@ public class UserService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            if (!DataHandler.getInstance().deleteUser(id)) {
-                httpStatus = 410;
+        if (loggedInUser != null){
+            try {
+                if (!DataHandler.getInstance().deleteUser(id)) {
+                    httpStatus = 410;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        }else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)

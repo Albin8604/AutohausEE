@@ -1,8 +1,9 @@
 package ch.bzz.autohaus.service;
 
+import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.data.DataHandler;
-import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
+import ch.bzz.autohaus.model.User;
 
 import javax.validation.Valid;
 import javax.ws.rs.BeanParam;
@@ -17,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +26,6 @@ import java.util.UUID;
  * Webservice for Operations with the Kontaktperson class
  *
  * @author Albin Smrqaku
- *
  */
 @Path("kontaktperson")
 public class KontaktpersonService {
@@ -34,7 +35,6 @@ public class KontaktpersonService {
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status OK and the kontaktpersonList
-     *
      */
     @GET
     @Path("list")
@@ -43,10 +43,19 @@ public class KontaktpersonService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
-        List<Kontaktperson> kontaktpersonList = DataHandler.getInstance().readAllKontaktperson();
+        List<Kontaktperson> kontaktpersonList = Collections.emptyList();
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
+        int httpStatus = 200;
+
+        if (loggedInUser != null) {
+            kontaktpersonList = DataHandler.getInstance().readAllKontaktperson();
+        } else {
+            httpStatus = 401;
+        }
 
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(kontaktpersonList)
                 .build();
     }
@@ -54,11 +63,10 @@ public class KontaktpersonService {
     /**
      * Delivers a kontaktperson with a specific uuid
      *
-     * @param id uuid of the konaktperson
+     * @param id                uuid of the konaktperson
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the kontaktperson
-     *
      */
     @GET
     @Path("kontaktperson")
@@ -68,17 +76,24 @@ public class KontaktpersonService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
         Kontaktperson kontaktperson = null;
+
         int httpStatus = 200;
 
-        try {
-            kontaktperson = DataHandler.getInstance().readKontaktpersonByUUID(id);
-            if (kontaktperson == null) {
-                httpStatus = 404;
+        if (loggedInUser != null) {
+            try {
+                kontaktperson = DataHandler.getInstance().readKontaktpersonByUUID(id);
+                if (kontaktperson == null) {
+                    httpStatus = 404;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
+
         return Response
                 .status(httpStatus)
                 .entity(kontaktperson)
@@ -88,7 +103,7 @@ public class KontaktpersonService {
     /**
      * Creates an kontaktperson
      *
-     * @param kontaktperson kontaktperson BeanParam
+     * @param kontaktperson     kontaktperson BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200 or 400
@@ -101,14 +116,20 @@ public class KontaktpersonService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        kontaktperson.setKontaktpersonUUID(UUID.randomUUID().toString());
+        if (loggedInUser != null) {
+            kontaktperson.setKontaktpersonUUID(UUID.randomUUID().toString());
 
-        try {
-            DataHandler.getInstance().insertKontaktperson(kontaktperson);
-        } catch (Exception exception) {
-            httpStatus = 400;
+            try {
+                DataHandler.getInstance().insertKontaktperson(kontaktperson);
+            } catch (Exception exception) {
+                httpStatus = 400;
+            }
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -119,7 +140,7 @@ public class KontaktpersonService {
     /**
      * updates an kontaktperson
      *
-     * @param kontaktperson kontaktperson BeanParam
+     * @param kontaktperson     kontaktperson BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200, 400 or 410
@@ -132,19 +153,25 @@ public class KontaktpersonService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            Kontaktperson kontaktpersonToBeUpdated = DataHandler.getInstance().readKontaktpersonByUUID(kontaktperson.getKontaktpersonUUID());
-            if (kontaktpersonToBeUpdated != null) {
-                setAttributes(kontaktpersonToBeUpdated, kontaktperson);
+        if (loggedInUser != null) {
+            try {
+                Kontaktperson kontaktpersonToBeUpdated = DataHandler.getInstance().readKontaktpersonByUUID(kontaktperson.getKontaktpersonUUID());
+                if (kontaktpersonToBeUpdated != null) {
+                    setAttributes(kontaktpersonToBeUpdated, kontaktperson);
 
-                DataHandler.getInstance().updateKontaktperson();
-            } else {
-                httpStatus = 410;
+                    DataHandler.getInstance().updateKontaktperson();
+                } else {
+                    httpStatus = 410;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -155,7 +182,7 @@ public class KontaktpersonService {
     /**
      * Deletes an kontaktperson identified by its uuid
      *
-     * @param id uuid of the kontaktperson
+     * @param id                uuid of the kontaktperson
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response
@@ -168,14 +195,20 @@ public class KontaktpersonService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            if (!DataHandler.getInstance().deleteKontaktperson(id)) {
-                httpStatus = 410;
+        if (loggedInUser != null) {
+            try {
+                if (!DataHandler.getInstance().deleteKontaktperson(id)) {
+                    httpStatus = 410;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)

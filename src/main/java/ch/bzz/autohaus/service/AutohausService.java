@@ -165,17 +165,21 @@ public class AutohausService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                Autohaus autohausToBeUpdated = DataHandler.getInstance().readAutohausByUUID(autohaus.getAutohausUUID());
-                if (autohausToBeUpdated != null) {
-                    setAttributes(autohausToBeUpdated, autohaus);
+            if (Helper.getInstance().isUserValidForUpdate(loggedInUser)) {
+                try {
+                    Autohaus autohausToBeUpdated = DataHandler.getInstance().readAutohausByUUID(autohaus.getAutohausUUID());
+                    if (autohausToBeUpdated != null) {
+                        setAttributes(autohausToBeUpdated, autohaus);
 
-                    DataHandler.getInstance().updateAutohaus();
-                } else {
-                    httpStatus = 410;
+                        DataHandler.getInstance().updateAutohaus();
+                    } else {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
@@ -207,12 +211,16 @@ public class AutohausService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                if (!DataHandler.getInstance().deleteAutohaus(id)) {
-                    httpStatus = 410;
+            if (Helper.getInstance().isUserValidForDelete(loggedInUser)) {
+                try {
+                    if (!DataHandler.getInstance().deleteAutohaus(id)) {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;

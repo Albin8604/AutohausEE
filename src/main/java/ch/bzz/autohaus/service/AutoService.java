@@ -1,7 +1,9 @@
 package ch.bzz.autohaus.service;
 
+import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.data.DataHandler;
 import ch.bzz.autohaus.model.Auto;
+import ch.bzz.autohaus.model.User;
 
 import javax.validation.Valid;
 import javax.ws.rs.BeanParam;
@@ -15,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,10 +43,20 @@ public class AutoService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
-        List<Auto> autoList = DataHandler.getInstance().readAllAutos();
+        List<Auto> autoList = Collections.emptyList();
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
+        int httpStatus = 200;
+
+        if (loggedInUser != null) {
+            autoList = DataHandler.getInstance().readAllAutos();
+        } else {
+            httpStatus = 401;
+        }
+
 
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(autoList)
                 .build();
     }
@@ -51,7 +64,7 @@ public class AutoService {
     /**
      * Delivers an auto with a specific uuid
      *
-     * @param id uuid of the auto
+     * @param id                uuid of the auto
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the auto
@@ -64,16 +77,22 @@ public class AutoService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
         Auto auto = null;
+
         int httpStatus = 200;
 
-        try {
-            auto = DataHandler.getInstance().readAutoByUUID(id);
-            if (auto == null) {
-                httpStatus = 404;
+        if (loggedInUser != null) {
+            try {
+                auto = DataHandler.getInstance().readAutoByUUID(id);
+                if (auto == null) {
+                    httpStatus = 404;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -84,7 +103,7 @@ public class AutoService {
     /**
      * Creates an auto
      *
-     * @param auto auto BeanParam
+     * @param auto              auto BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200 or 400
@@ -97,14 +116,20 @@ public class AutoService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        auto.setAutoUUID(UUID.randomUUID().toString());
+        if (loggedInUser != null) {
+            auto.setAutoUUID(UUID.randomUUID().toString());
 
-        try {
-            DataHandler.getInstance().insertAuto(auto);
-        } catch (Exception exception) {
-            httpStatus = 400;
+            try {
+                DataHandler.getInstance().insertAuto(auto);
+            } catch (Exception exception) {
+                httpStatus = 400;
+            }
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -115,7 +140,7 @@ public class AutoService {
     /**
      * updates an auto
      *
-     * @param auto auto BeanParam
+     * @param auto              auto BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200, 400 or 410
@@ -128,19 +153,25 @@ public class AutoService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            Auto autoToBeUpdated = DataHandler.getInstance().readAutoByUUID(auto.getAutoUUID());
-            if (autoToBeUpdated != null) {
-                setAttributes(autoToBeUpdated, auto);
+        if (loggedInUser != null) {
+            try {
+                Auto autoToBeUpdated = DataHandler.getInstance().readAutoByUUID(auto.getAutoUUID());
+                if (autoToBeUpdated != null) {
+                    setAttributes(autoToBeUpdated, auto);
 
-                DataHandler.getInstance().updateAuto();
-            } else {
-                httpStatus = 410;
+                    DataHandler.getInstance().updateAuto();
+                } else {
+                    httpStatus = 410;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -151,7 +182,7 @@ public class AutoService {
     /**
      * Deletes an auto identified by its uuid
      *
-     * @param id uuid of the auto
+     * @param id                uuid of the auto
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
      * @return Response
@@ -164,14 +195,20 @@ public class AutoService {
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            if (!DataHandler.getInstance().deleteAuto(id)) {
-                httpStatus = 410;
+        if (loggedInUser != null) {
+            try {
+                if (!DataHandler.getInstance().deleteAuto(id)) {
+                    httpStatus = 410;
+                }
+            } catch (Exception exception) {
+                httpStatus = 400;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
