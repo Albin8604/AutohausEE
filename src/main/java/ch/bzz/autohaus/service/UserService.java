@@ -326,11 +326,7 @@ public class UserService {
         NewCookie passwordCookie = null;
         NewCookie roleCookie = null;
 
-        User user = DataHandler.getInstance()
-                .readUserByLogin(
-                        Helper.getInstance().decrypt(encryptedUsername),
-                        Helper.getInstance().decrypt(encryptedPassword)
-                );
+        User user = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
         if (user != null) {
             usernameCookie = new NewCookie(
                     "username",
