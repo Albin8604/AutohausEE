@@ -34,7 +34,7 @@ public class AutoService {
      *
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
-     * @return Response with Status OK and the autoList
+     * @return Response with Status 200, 401 or 403 and the autoList
      */
     @GET
     @Path("list")
@@ -71,7 +71,7 @@ public class AutoService {
      * @param id                uuid of the auto
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
-     * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the auto
+     * @return Response with Status 200, 400, 401, 403 or 404 (depends on if an entity could be found) and the auto
      */
     @GET
     @Path("auto")
@@ -114,7 +114,7 @@ public class AutoService {
      * @param auto              auto BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
-     * @return Response with Status 200 or 400
+     * @return Response with Status 200, 400, 401 or 403
      */
     @POST
     @Path("create")
@@ -155,7 +155,7 @@ public class AutoService {
      * @param auto              auto BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
-     * @return Response with Status 200, 400 or 410
+     * @return Response with Status 200, 400, 401, 403 or 410
      */
     @PUT
     @Path("update")

@@ -35,7 +35,7 @@ public class UserService {
      *
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
-     * @return Response with Status OK and the userList
+     * @return Response with Status 200, 401 or 403 and the userList
      */
     @GET
     @Path("list")
@@ -71,7 +71,7 @@ public class UserService {
      * @param id                uuid of the user
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
-     * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the user
+     * @return Response with Status 200, 400, 401, 403 or 404 (depends on if an entity could be found) and the user
      */
     @GET
     @Path("user")
@@ -114,7 +114,7 @@ public class UserService {
      * @param user              user BeanParam
      * @param encryptedUsername encrypted username from cookie
      * @param encryptedPassword encrypted password from cookie
-     * @return Response with Status 200 or 400
+     * @return Response with Status 200, 400, 401 or 403
      */
     @POST
     @Path("create")
@@ -131,6 +131,7 @@ public class UserService {
         if (loggedInUser != null) {
             if (Helper.getInstance().isUserValidForCreate(loggedInUser)) {
                 user.setUserUUID(UUID.randomUUID().toString());
+                user.setPassword(Helper.getInstance().hashPassword(user.getPassword()));
 
                 try {
                     DataHandler.getInstance().insertUser(user);
@@ -257,7 +258,10 @@ public class UserService {
         NewCookie roleCookie = null;
 
         User user = DataHandler.getInstance()
-                .readUserByLogin(username, password);
+                .readUserByLogin(
+                        username,
+                        Helper.getInstance().hashPassword(password)
+                );
         String role = "guest";
         if (user != null) {
             role = user.getUserRole();
@@ -385,8 +389,8 @@ public class UserService {
             user.setUserName(userToBeCopiedOf.getUserName());
         }
 
-        if (!user.getPassword().equals(userToBeCopiedOf.getPassword())) {
-            user.setPassword(userToBeCopiedOf.getPassword());
+        if (!user.getPassword().equals(Helper.getInstance().hashPassword(userToBeCopiedOf.getPassword()))) {
+            user.setPassword(Helper.getInstance().hashPassword(userToBeCopiedOf.getPassword()));
         }
 
         if (!user.getUserRole().equals(userToBeCopiedOf.getUserRole())) {

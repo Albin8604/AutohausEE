@@ -308,13 +308,13 @@ public class DataHandler {
      * Reads user by login
      *
      * @param username username of user
-     * @param password password of user
+     * @param password hashed password of user
      * @return user
      */
     public User readUserByLogin(String username, String password) {
         for (User user : getUserList()) {
             if (user.getUserName().equals(username) &&
-                    user.getPassword().equals(Helper.getInstance().hashPassword(password))) {
+                    user.getPassword().equals(password)) {
                 return user;
             }
         }

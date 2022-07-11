@@ -140,7 +140,11 @@ public class Helper {
      * @throws InvalidKeyException
      * @throws InvalidAlgorithmParameterException
      */
-    private Cipher initCipher(int cipherMode) throws InvalidKeySpecException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
+    private Cipher initCipher(int cipherMode) throws InvalidKeySpecException,
+            NoSuchPaddingException,
+            NoSuchAlgorithmException,
+            InvalidAlgorithmParameterException,
+            InvalidKeyException {
         byte[] iv = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         IvParameterSpec ivspec = new IvParameterSpec(iv);
 
