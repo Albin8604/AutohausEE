@@ -1,5 +1,6 @@
 package ch.bzz.autohaus.data;
 
+import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.model.Auto;
 import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
@@ -301,6 +302,23 @@ public class DataHandler {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Reads user by login
+     *
+     * @param username username of user
+     * @param password hashed password of user
+     * @return user
+     */
+    public User readUserByLogin(String username, String password) {
+        for (User user : getUserList()) {
+            if (user.getUserName().equals(username) &&
+                    user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     /**

@@ -1,6 +1,6 @@
 package ch.bzz.autohaus.model;
 
-import ch.bzz.autohaus.Helper;
+import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.data.deserializer.FileDataDeserializer;
 import ch.bzz.autohaus.data.deserializer.LocalDateDeserializer;
 import ch.bzz.autohaus.data.serializer.FileDataSerializer;

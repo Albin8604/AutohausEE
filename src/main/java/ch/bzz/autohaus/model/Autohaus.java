@@ -1,6 +1,6 @@
 package ch.bzz.autohaus.model;
 
-import ch.bzz.autohaus.Helper;
+import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.data.DataHandler;
 import ch.bzz.autohaus.data.deserializer.LocalDateDeserializer;
 import ch.bzz.autohaus.data.serializer.LocalDateSerializer;
@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;

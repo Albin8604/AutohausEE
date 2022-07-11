@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class Config extends Application {
     private static final String PROPERTIES_PATH =
-            "C:\\Users\\smrqa\\Desktop\\Elbin\\Lehre\\BZZ\\Berufsschule\\Modul133\\Autohaus\\src\\main\\webapp\\autohaus.properties";
+            "C:\\Users\\smrqa\\Desktop\\Elbin\\Lehre\\BZZ\\Berufsschule\\Modul133\\data\\autohaus.properties";
     private static Properties properties = null;
     /**
      * define all provider classes
@@ -32,6 +32,7 @@ public class Config extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         HashSet<Class<?>> providers = new HashSet<>();
+        providers.add(TestService.class);
         providers.add(AutoService.class);
         providers.add(AutohausService.class);
         providers.add(KontaktpersonService.class);

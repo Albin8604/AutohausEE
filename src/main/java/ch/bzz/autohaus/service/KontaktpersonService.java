@@ -1,11 +1,13 @@
 package ch.bzz.autohaus.service;
 
+import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.data.DataHandler;
-import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
+import ch.bzz.autohaus.model.User;
 
 import javax.validation.Valid;
 import javax.ws.rs.BeanParam;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,24 +26,40 @@ import java.util.UUID;
  * Webservice for Operations with the Kontaktperson class
  *
  * @author Albin Smrqaku
- *
  */
 @Path("kontaktperson")
 public class KontaktpersonService {
     /**
      * Delivers kontaktpersonList as a JsonArray
      *
-     * @return Response with Status OK and the kontaktpersonList
-     *
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
+     * @return Response with Status 200, 401 or 403 and the kontaktpersonList
      */
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listAutos() {
-        List<Kontaktperson> kontaktpersonList = DataHandler.getInstance().readAllKontaktperson();
+    public Response listKontaktpersonen(
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
+    ) {
+        List<Kontaktperson> kontaktpersonList = Collections.emptyList();
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
+        int httpStatus = 200;
+
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)) {
+                kontaktpersonList = DataHandler.getInstance().readAllKontaktperson();
+            } else {
+                httpStatus = 403;
+            }
+        } else {
+            httpStatus = 401;
+        }
 
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(kontaktpersonList)
                 .build();
     }
@@ -48,27 +67,41 @@ public class KontaktpersonService {
     /**
      * Delivers a kontaktperson with a specific uuid
      *
-     * @param id uuid of the konaktperson
-     * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the kontaktperson
-     *
+     * @param id                uuid of the konaktperson
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
+     * @return Response with Status 200, 400, 401, 403 or 404 (depends on if an entity could be found) and the kontaktperson
      */
     @GET
     @Path("kontaktperson")
     @Produces(MediaType.APPLICATION_JSON)
     public Response idKontaktperson(
-            @QueryParam("id") String id
+            @QueryParam("id") String id,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
         Kontaktperson kontaktperson = null;
+
         int httpStatus = 200;
 
-        try {
-            kontaktperson = DataHandler.getInstance().readKontaktpersonByUUID(id);
-            if (kontaktperson == null) {
-                httpStatus = 404;
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)) {
+                try {
+                    kontaktperson = DataHandler.getInstance().readKontaktpersonByUUID(id);
+                    if (kontaktperson == null) {
+                        httpStatus = 404;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            } else {
+                httpStatus = 403;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
+
         return Response
                 .status(httpStatus)
                 .entity(kontaktperson)
@@ -78,23 +111,37 @@ public class KontaktpersonService {
     /**
      * Creates an kontaktperson
      *
-     * @param kontaktperson kontaktperson BeanParam
-     * @return Response with Status 200 or 400
+     * @param kontaktperson     kontaktperson BeanParam
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
+     * @return Response with Status 200, 400, 401 or 403
      */
     @POST
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response createKontaktperson(
-            @Valid @BeanParam Kontaktperson kontaktperson
+            @Valid @BeanParam Kontaktperson kontaktperson,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        kontaktperson.setKontaktpersonUUID(UUID.randomUUID().toString());
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForCreate(loggedInUser)) {
+                kontaktperson.setKontaktpersonUUID(UUID.randomUUID().toString());
 
-        try {
-            DataHandler.getInstance().insertKontaktperson(kontaktperson);
-        } catch (Exception exception) {
-            httpStatus = 400;
+                try {
+                    DataHandler.getInstance().insertKontaktperson(kontaktperson);
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            } else {
+                httpStatus = 403;
+            }
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -105,28 +152,42 @@ public class KontaktpersonService {
     /**
      * updates an kontaktperson
      *
-     * @param kontaktperson kontaktperson BeanParam
-     * @return Response with Status 200, 400 or 410
+     * @param kontaktperson     kontaktperson BeanParam
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
+     * @return Response with Status 200, 400, 401, 403 or 410
      */
     @PUT
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateKontaktperson(
-            @Valid @BeanParam Kontaktperson kontaktperson
+            @Valid @BeanParam Kontaktperson kontaktperson,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            Kontaktperson kontaktpersonToBeUpdated = DataHandler.getInstance().readKontaktpersonByUUID(kontaktperson.getKontaktpersonUUID());
-            if (kontaktpersonToBeUpdated != null) {
-                setAttributes(kontaktpersonToBeUpdated, kontaktperson);
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForUpdate(loggedInUser)) {
+                try {
+                    Kontaktperson kontaktpersonToBeUpdated = DataHandler.getInstance().readKontaktpersonByUUID(kontaktperson.getKontaktpersonUUID());
+                    if (kontaktpersonToBeUpdated != null) {
+                        setAttributes(kontaktpersonToBeUpdated, kontaktperson);
 
-                DataHandler.getInstance().updateKontaktperson();
+                        DataHandler.getInstance().updateKontaktperson();
+                    } else {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
             } else {
-                httpStatus = 410;
+                httpStatus = 403;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -137,23 +198,37 @@ public class KontaktpersonService {
     /**
      * Deletes an kontaktperson identified by its uuid
      *
-     * @param id uuid of the kontaktperson
+     * @param id                uuid of the kontaktperson
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
      * @return Response
      */
     @DELETE
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteKontaktperson(
-            @QueryParam("id") String id
+            @QueryParam("id") String id,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            if (!DataHandler.getInstance().deleteKontaktperson(id)) {
-                httpStatus = 410;
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForDelete(loggedInUser)) {
+                try {
+                    if (!DataHandler.getInstance().deleteKontaktperson(id)) {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            } else {
+                httpStatus = 403;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)

@@ -1,10 +1,13 @@
 package ch.bzz.autohaus.service;
 
+import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.data.DataHandler;
 import ch.bzz.autohaus.model.Autohaus;
+import ch.bzz.autohaus.model.User;
 
 import javax.validation.Valid;
 import javax.ws.rs.BeanParam;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,17 +32,35 @@ public class AutohausService {
     /**
      * Delivers autohausList as a JsonArray
      *
-     * @return Response with Status OK and the autohausList
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
+     * @return Response with Status 200, 401 or 403 and the autohausList
      */
 
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listAutos() {
-        List<Autohaus> autohausList = DataHandler.getInstance().readAllAutohaus();
+    public Response listAutohaus(
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
+    ) {
+        List<Autohaus> autohausList = Collections.emptyList();
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
+        int httpStatus = 200;
+
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)){
+                autohausList = DataHandler.getInstance().readAllAutohaus();
+            }else {
+                httpStatus = 403;
+            }
+        } else {
+            httpStatus = 401;
+        }
 
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(autohausList)
                 .build();
     }
@@ -46,27 +68,42 @@ public class AutohausService {
     /**
      * Delivers an autohaus with a specific uuid
      *
-     * @param id uuid of the autohaus
-     * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the autohaus
+     * @param id                uuid of the autohaus
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
+     * @return Response with Status 200, 400, 401, 403 or 404 (depends on if an entity could be found) and the autohaus
      */
 
     @GET
     @Path("autohaus")
     @Produces(MediaType.APPLICATION_JSON)
     public Response idAutohaus(
-            @QueryParam("id") String id
+            @QueryParam("id") String id,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
         Autohaus autohaus = null;
+
         int httpStatus = 200;
 
-        try {
-            autohaus = DataHandler.getInstance().readAutohausByUUID(id);
-            if (autohaus == null) {
-                httpStatus = 404;
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForRead(loggedInUser)){
+                try {
+                    autohaus = DataHandler.getInstance().readAutohausByUUID(id);
+                    if (autohaus == null) {
+                        httpStatus = 404;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            }else {
+                httpStatus = 403;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
+
         return Response
                 .status(httpStatus)
                 .entity(autohaus)
@@ -76,24 +113,39 @@ public class AutohausService {
     /**
      * Creates an autohaus
      *
-     * @param autohaus autohaus BeanParam
-     * @return Response with Status 200 or 400
+     * @param autohaus          autohaus BeanParam
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
+     * @return Response with Status 200, 400, 401 or 403
      */
     @POST
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response createAutohaus(
-            @Valid @BeanParam Autohaus autohaus
+            @Valid @BeanParam Autohaus autohaus,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        autohaus.setAutohausUUID(UUID.randomUUID().toString());
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForCreate(loggedInUser)) {
+                autohaus.setAutohausUUID(UUID.randomUUID().toString());
 
-        try {
-            DataHandler.getInstance().insertAutohaus(autohaus);
-        } catch (Exception exception) {
-            httpStatus = 400;
+                try {
+                    DataHandler.getInstance().insertAutohaus(autohaus);
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            } else {
+                httpStatus = 403;
+            }
+        } else {
+            httpStatus = 401;
         }
+
         return Response
                 .status(httpStatus)
                 .entity("")
@@ -103,28 +155,42 @@ public class AutohausService {
     /**
      * updates an autohaus
      *
-     * @param autohaus autohaus BeanParam
-     * @return Response with Status 200, 400 or 410
+     * @param autohaus          autohaus BeanParam
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
+     * @return Response with Status 200, 400, 401, 403 or 410
      */
     @PUT
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateAutohaus(
-            @Valid @BeanParam Autohaus autohaus
+            @Valid @BeanParam Autohaus autohaus,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            Autohaus autohausToBeUpdated = DataHandler.getInstance().readAutohausByUUID(autohaus.getAutohausUUID());
-            if (autohausToBeUpdated != null) {
-                setAttributes(autohausToBeUpdated, autohaus);
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForUpdate(loggedInUser)) {
+                try {
+                    Autohaus autohausToBeUpdated = DataHandler.getInstance().readAutohausByUUID(autohaus.getAutohausUUID());
+                    if (autohausToBeUpdated != null) {
+                        setAttributes(autohausToBeUpdated, autohaus);
 
-                DataHandler.getInstance().updateAutohaus();
+                        DataHandler.getInstance().updateAutohaus();
+                    } else {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
             } else {
-                httpStatus = 410;
+                httpStatus = 403;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
@@ -135,23 +201,37 @@ public class AutohausService {
     /**
      * Deletes an autohaus identified by its uuid
      *
-     * @param id uuid of the autohaus
+     * @param id                uuid of the autohaus
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
      * @return Response
      */
     @DELETE
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteAutohaus(
-            @QueryParam("id") String id
+            @QueryParam("id") String id,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
+        User loggedInUser = Helper.getInstance().getUserByEncryptedLogin(encryptedUsername, encryptedPassword);
+
         int httpStatus = 200;
 
-        try {
-            if (!DataHandler.getInstance().deleteAutohaus(id)) {
-                httpStatus = 410;
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForDelete(loggedInUser)) {
+                try {
+                    if (!DataHandler.getInstance().deleteAutohaus(id)) {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            } else {
+                httpStatus = 403;
             }
-        } catch (Exception exception) {
-            httpStatus = 400;
+        } else {
+            httpStatus = 401;
         }
         return Response
                 .status(httpStatus)
