@@ -9,7 +9,6 @@
       </options>
     </properties>
     <root id="root">
-      <element id="module-output" name="AutohausEE" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="AutohausEE" />
@@ -22,6 +21,7 @@
           <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
         </element>
       </element>
+      <element id="module-output" name="AutohausEE" />
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/AutohausEE-1.0/META-INF/MANIFEST.MF" />
       </element>

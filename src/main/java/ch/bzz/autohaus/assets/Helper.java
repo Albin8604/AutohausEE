@@ -1,5 +1,7 @@
 package ch.bzz.autohaus.assets;
 
+import ch.bzz.autohaus.data.DataHandler;
+import ch.bzz.autohaus.model.User;
 import ch.bzz.autohaus.service.Config;
 
 import javax.crypto.Cipher;
@@ -19,7 +21,10 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Helper class, in which methods are defined that can helps multiple classes
@@ -150,5 +155,66 @@ public class Helper {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
         cipher.init(cipherMode, secretKey, ivspec);
         return cipher;
+    }
+
+    /**
+     * Returns logged in user
+     *
+     * @param encryptedUsername encrypted username
+     * @param encryptedPassword encrypted password
+     * @return user with this login credentials
+     */
+    public User getUserByEncryptedLogin(String encryptedUsername, String encryptedPassword) {
+        return DataHandler.getInstance().readUserByLogin(
+                Helper.getInstance().decrypt(encryptedUsername),
+                Helper.getInstance().decrypt(encryptedPassword)
+        );
+    }
+
+    /**
+     * defines which roles are valid for creation of something and returns if the user is eligible to do it or not
+     * @param loggedInUser logged in user
+     * @return is user valid for creation
+     */
+    public boolean isUserValidForCreate(User loggedInUser) {
+        final List<String> eligibleRoles = Arrays.asList("owner", "admin");
+
+        return hasUserOneOfRoles(loggedInUser, eligibleRoles);
+    }
+
+    /**
+     * defines which roles are valid for updating of something and returns if the user is eligible to do it or not
+     * @param loggedInUser logged in user
+     * @return is user valid for update
+     */
+    public boolean isUserValidForUpdate(User loggedInUser) {
+        return isUserValidForCreate(loggedInUser);
+    }
+
+    /**
+     * defines which roles are valid for deletion of something and returns if the user is eligible to do it or not
+     * @param loggedInUser logged in user
+     * @return is user valid for deletion
+     */
+    public boolean isUserValidForDelete(User loggedInUser) {
+        final List<String> eligibleRoles = Collections.singletonList("owner");
+
+        return hasUserOneOfRoles(loggedInUser, eligibleRoles);
+    }
+
+    /**
+     * checks if one of the defined roles are assigned to the user
+     *
+     * @param loggedInUser logged in user
+     * @param roles roles with user needs to get checked
+     * @return if user has one of the defined roles
+     */
+    private boolean hasUserOneOfRoles(User loggedInUser, List<String> roles) {
+        for (String eligibleRole : roles) {
+            if (loggedInUser.getUserRole().equalsIgnoreCase(eligibleRole)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

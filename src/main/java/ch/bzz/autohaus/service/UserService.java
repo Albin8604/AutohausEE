@@ -32,12 +32,17 @@ public class UserService {
     /**
      * Delivers userList as a JsonArray
      *
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
      * @return Response with Status OK and the userList
      */
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listAutos() {
+    public Response listAutos(
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
+    ) {
         List<User> userList = DataHandler.getInstance().readAllUser();
 
         return Response
@@ -50,13 +55,17 @@ public class UserService {
      * Delivers a user with a specific uuid
      *
      * @param id uuid of the user
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200, 400 or 404 (depends on if an entity could be found) and the user
      */
     @GET
     @Path("user")
     @Produces(MediaType.APPLICATION_JSON)
     public Response idKontaktperson(
-            @QueryParam("id") String id
+            @QueryParam("id") String id,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
         User user = null;
         int httpStatus = 200;
@@ -79,13 +88,17 @@ public class UserService {
      * Creates a user
      *
      * @param user user BeanParam
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200 or 400
      */
     @POST
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response createUser(
-            @Valid @BeanParam User user
+            @Valid @BeanParam User user,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
         int httpStatus = 200;
 
@@ -106,13 +119,17 @@ public class UserService {
      * updates a user
      *
      * @param user user BeanParam
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
      * @return Response with Status 200, 400 or 410
      */
     @PUT
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateUser(
-            @Valid @BeanParam User user
+            @Valid @BeanParam User user,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
         int httpStatus = 200;
 
@@ -138,13 +155,17 @@ public class UserService {
      * Deletes a user identified by its uuid
      *
      * @param id uuid of the user
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
      * @return Response
      */
     @DELETE
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteUser(
-            @QueryParam("id") String id
+            @QueryParam("id") String id,
+            @CookieParam("username") String encryptedUsername,
+            @CookieParam("password") String encryptedPassword
     ) {
         int httpStatus = 200;
 
@@ -234,8 +255,8 @@ public class UserService {
     /**
      * Logs a user out
      *
-     * @param encryptedUsername username of the user
-     * @param encryptedPassword password of the user
+     * @param encryptedUsername encrypted username from cookie
+     * @param encryptedPassword encrypted password from cookie
      * @return Response
      */
     @POST
