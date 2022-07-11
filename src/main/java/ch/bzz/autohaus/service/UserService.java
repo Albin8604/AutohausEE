@@ -40,7 +40,7 @@ public class UserService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listAutos(
+    public Response listUsers(
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
     ) {
@@ -72,7 +72,7 @@ public class UserService {
     @GET
     @Path("user")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response idKontaktperson(
+    public Response idUser(
             @QueryParam("id") String id,
             @CookieParam("username") String encryptedUsername,
             @CookieParam("password") String encryptedPassword
@@ -121,12 +121,16 @@ public class UserService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            user.setUserUUID(UUID.randomUUID().toString());
+            if (Helper.getInstance().isUserValidForCreate(loggedInUser)) {
+                user.setUserUUID(UUID.randomUUID().toString());
 
-            try {
-                DataHandler.getInstance().insertUser(user);
-            } catch (Exception exception) {
-                httpStatus = 400;
+                try {
+                    DataHandler.getInstance().insertUser(user);
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
@@ -157,20 +161,24 @@ public class UserService {
 
         int httpStatus = 200;
 
-        if (loggedInUser != null){
-            try {
-                User userToBeUpdated = DataHandler.getInstance().readUserByUUID(user.getUserUUID());
-                if (userToBeUpdated != null) {
-                    setAttributes(userToBeUpdated, user);
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForUpdate(loggedInUser)) {
+                try {
+                    User userToBeUpdated = DataHandler.getInstance().readUserByUUID(user.getUserUUID());
+                    if (userToBeUpdated != null) {
+                        setAttributes(userToBeUpdated, user);
 
-                    DataHandler.getInstance().updateUser();
-                } else {
-                    httpStatus = 410;
+                        DataHandler.getInstance().updateUser();
+                    } else {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
-        }else {
+        } else {
             httpStatus = 401;
         }
         return Response
@@ -199,15 +207,19 @@ public class UserService {
 
         int httpStatus = 200;
 
-        if (loggedInUser != null){
-            try {
-                if (!DataHandler.getInstance().deleteUser(id)) {
-                    httpStatus = 410;
+        if (loggedInUser != null) {
+            if (Helper.getInstance().isUserValidForDelete(loggedInUser)){
+                try {
+                    if (!DataHandler.getInstance().deleteUser(id)) {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            }else {
+                httpStatus = 403;
             }
-        }else {
+        } else {
             httpStatus = 401;
         }
         return Response

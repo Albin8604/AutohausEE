@@ -121,12 +121,16 @@ public class AutoService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            auto.setAutoUUID(UUID.randomUUID().toString());
+            if (Helper.getInstance().isUserValidForCreate(loggedInUser)) {
+                auto.setAutoUUID(UUID.randomUUID().toString());
 
-            try {
-                DataHandler.getInstance().insertAuto(auto);
-            } catch (Exception exception) {
-                httpStatus = 400;
+                try {
+                    DataHandler.getInstance().insertAuto(auto);
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
@@ -158,17 +162,21 @@ public class AutoService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                Auto autoToBeUpdated = DataHandler.getInstance().readAutoByUUID(auto.getAutoUUID());
-                if (autoToBeUpdated != null) {
-                    setAttributes(autoToBeUpdated, auto);
+            if (Helper.getInstance().isUserValidForUpdate(loggedInUser)) {
+                try {
+                    Auto autoToBeUpdated = DataHandler.getInstance().readAutoByUUID(auto.getAutoUUID());
+                    if (autoToBeUpdated != null) {
+                        setAttributes(autoToBeUpdated, auto);
 
-                    DataHandler.getInstance().updateAuto();
-                } else {
-                    httpStatus = 410;
+                        DataHandler.getInstance().updateAuto();
+                    } else {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
@@ -200,12 +208,16 @@ public class AutoService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                if (!DataHandler.getInstance().deleteAuto(id)) {
-                    httpStatus = 410;
+            if (Helper.getInstance().isUserValidForDelete(loggedInUser)) {
+                try {
+                    if (!DataHandler.getInstance().deleteAuto(id)) {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;

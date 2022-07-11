@@ -121,12 +121,16 @@ public class KontaktpersonService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            kontaktperson.setKontaktpersonUUID(UUID.randomUUID().toString());
+            if (Helper.getInstance().isUserValidForCreate(loggedInUser)) {
+                kontaktperson.setKontaktpersonUUID(UUID.randomUUID().toString());
 
-            try {
-                DataHandler.getInstance().insertKontaktperson(kontaktperson);
-            } catch (Exception exception) {
-                httpStatus = 400;
+                try {
+                    DataHandler.getInstance().insertKontaktperson(kontaktperson);
+                } catch (Exception exception) {
+                    httpStatus = 400;
+                }
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
@@ -158,17 +162,21 @@ public class KontaktpersonService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                Kontaktperson kontaktpersonToBeUpdated = DataHandler.getInstance().readKontaktpersonByUUID(kontaktperson.getKontaktpersonUUID());
-                if (kontaktpersonToBeUpdated != null) {
-                    setAttributes(kontaktpersonToBeUpdated, kontaktperson);
+            if (Helper.getInstance().isUserValidForUpdate(loggedInUser)) {
+                try {
+                    Kontaktperson kontaktpersonToBeUpdated = DataHandler.getInstance().readKontaktpersonByUUID(kontaktperson.getKontaktpersonUUID());
+                    if (kontaktpersonToBeUpdated != null) {
+                        setAttributes(kontaktpersonToBeUpdated, kontaktperson);
 
-                    DataHandler.getInstance().updateKontaktperson();
-                } else {
-                    httpStatus = 410;
+                        DataHandler.getInstance().updateKontaktperson();
+                    } else {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
@@ -200,12 +208,16 @@ public class KontaktpersonService {
         int httpStatus = 200;
 
         if (loggedInUser != null) {
-            try {
-                if (!DataHandler.getInstance().deleteKontaktperson(id)) {
-                    httpStatus = 410;
+            if (Helper.getInstance().isUserValidForDelete(loggedInUser)) {
+                try {
+                    if (!DataHandler.getInstance().deleteKontaktperson(id)) {
+                        httpStatus = 410;
+                    }
+                } catch (Exception exception) {
+                    httpStatus = 400;
                 }
-            } catch (Exception exception) {
-                httpStatus = 400;
+            } else {
+                httpStatus = 403;
             }
         } else {
             httpStatus = 401;
