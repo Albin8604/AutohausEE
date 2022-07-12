@@ -1,0 +1,2467 @@
+{
+	"id": "28dbcc47-c8c7-4397-9664-c70a114718c6",
+	"name": "Autohaus Admin",
+	"timestamp": "2022-07-12T07:49:19.219Z",
+	"collection_id": "20792887-a74ba74c-ba15-48ce-bfcc-e1c7c124ff8f",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 79,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "89dc65ca-9260-4d8e-a56c-b868bc4ebe8f",
+			"name": "Login Wrong password",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/login",
+			"time": 3076,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3076
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "831ff9d3-80f3-42af-ab37-11f3d38596e3",
+			"name": "Login Wrong username",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/login",
+			"time": 543,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				543
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ebd5bfd2-86f8-4770-af68-c73c4c937df4",
+			"name": "Login",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/login",
+			"time": 1432,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1432
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "0c7f4154-a567-4770-ba80-1eb4f7caff36",
+			"name": "Read all Auto",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/list",
+			"time": 167,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				167
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "8fa80863-9b6d-4711-a4ed-65a6dbd66f7f",
+			"name": "Read Auto with ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/auto?id=2c9687b1-b5a5-42bc-a376-357fc77a8fea",
+			"time": 186,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				186
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "a99707b9-8802-4517-b26d-94ec99b1f417",
+			"name": "Read Auto with unknown ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/auto?id=1",
+			"time": 159,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				159
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "10b03612-55c5-4417-96c7-deade1656bb4",
+			"name": "Read all Autohaus",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/list",
+			"time": 199,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				199
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "bdd782a3-308a-4687-a922-c26df6a3b2c0",
+			"name": "Read Autohaus with ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/autohaus?id=699a7440-c308-4ce8-a497-40864a2f0143",
+			"time": 175,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				175
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ca5c165c-b04b-4e65-842d-bb73e3db4255",
+			"name": "Read Autohaus with unknown ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/autohaus?id=1",
+			"time": 180,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				180
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "0abdd1a0-1b7c-4570-b1e7-93086b199b8d",
+			"name": "Read all Kontaktperson",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/list",
+			"time": 172,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				172
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "524e3b7d-09c1-4c28-ac06-0c2d3fc1c828",
+			"name": "Read Kontaktperson with ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/kontaktperson?id=50377991-3b45-4d6c-abdd-c28d9351963a",
+			"time": 170,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				170
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "41dd4de0-2e60-4e27-aebe-20db43a57f3f",
+			"name": "Read Kontaktperson with unknown ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/kontaktperson?id=1",
+			"time": 168,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				168
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "c019259e-c85a-42f5-be49-0add5156ad07",
+			"name": "Read all User",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/list",
+			"time": 177,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				177
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ac481b33-a043-446b-af5b-8df4724c76f6",
+			"name": "Read User with ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/user?id=f4d9cfb5-e680-4334-ad7a-719d51cf3f43",
+			"time": 162,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				162
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "9f487561-d5fd-451d-80a7-a35d2c8f7d4d",
+			"name": "Read User with unknown ID",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/user?id=1",
+			"time": 178,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				178
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "6d04abd8-0d91-4975-8dc7-b2b3b7fd2e54",
+			"name": "Create Auto",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 190,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				190
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "eb4f11b4-f6c6-4b52-b929-6dea1476296f",
+			"name": "Create Auto empty marke",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "3270cca5-c7ee-4c17-a015-5321aeba4f92",
+			"name": "Create Auto too short marke",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "1837720a-fece-42ba-93d3-b40667b356f1",
+			"name": "Create Auto too long marke Copy",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "f00c5827-6a48-4e16-aeed-8396dc87cab0",
+			"name": "Create Auto empty modell",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "302b60f6-d1d5-4564-bd28-a0f128f3aa38",
+			"name": "Create Auto too short modell",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "50542709-da2e-4fd2-9aa7-e9e001244e6a",
+			"name": "Create Auto too long modell",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "0c40a08d-d174-46ea-80cb-e5012cc23bbf",
+			"name": "Create Auto farbcodeHex doesn't match pattern",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "6f94da2d-e4b6-447f-9dcd-531021304e36",
+			"name": "Create Auto empty art",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "2977a09d-967f-48d1-a19d-22e0f14416cf",
+			"name": "Create Auto too short art",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "7c4bd07a-2460-4b52-90c2-4ee4c698f8a1",
+			"name": "Create Auto too long art",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "849aefc3-9ff6-4a87-8c75-51a67023ccc0",
+			"name": "Create Auto empty ps",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "880bd64c-2cb8-4b7f-b0cf-b29d870d5ce2",
+			"name": "Create Auto too low ps",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "cad06d5d-e758-4fc2-8e60-4cf37bca1bb7",
+			"name": "Create Auto too high ps",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "acb2198f-931e-4397-ba0b-dc2f55d42fc3",
+			"name": "Create Auto empty nm",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "8101a954-cdc2-4ae6-9017-4531c0ae98b3",
+			"name": "Create Auto too low nm",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "38a4476c-9808-48eb-aedb-a2b5bdc8c557",
+			"name": "Create Auto too high nm",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "31eb2129-126d-44af-bd72-a0832b7ec543",
+			"name": "Create Auto empty preis",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "1055340c-6108-4f0e-8c20-28348c7a0aac",
+			"name": "Create Auto too low preis",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "91631cd0-bd50-4856-b3c3-282a05c72194",
+			"name": "Create Auto too high preis",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "c012df65-d49f-47ae-b892-0c794891176e",
+			"name": "Create Auto invalid preis",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "1d1ab7da-a322-4fdf-bbf7-6f3127b43784",
+			"name": "Create Autohaus",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 168,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				168
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "9a9a275f-3844-4fed-a82d-0c5f74c338ef",
+			"name": "Create Autohaus empty strasse",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "608fe49b-da80-4eb1-a682-311e57bf2700",
+			"name": "Create Autohaus too short strasse",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "be816e03-ca8d-4add-85a9-371a11c0064b",
+			"name": "Create Autohaus too long strasse",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "7869f4f9-edab-49b9-83ab-17067571553d",
+			"name": "Create Autohaus empty nummer",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "77ea8479-01e1-4a01-ac09-db02d1a7b0e7",
+			"name": "Create Autohaus too long nummer",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "55c3eacf-df6f-44eb-8923-4fd8174b28d5",
+			"name": "Create Autohaus empty ort",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "b98f237d-d636-40bc-a322-520751da0547",
+			"name": "Create Autohaus too short ort",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "1c9cc730-eae1-4d94-9e9d-19fab7cd00b0",
+			"name": "Create Autohaus too long ort",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "4b04086e-11b1-4698-bf17-55ed80e1fb62",
+			"name": "Create Autohaus empty plz",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "4dcd9584-f28a-4218-ab20-dcdeb80b6dec",
+			"name": "Create Autohaus too short plz",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "e71d6c1b-6d0a-43da-b8a4-3ee8946c1386",
+			"name": "Create Autohaus too long plz",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/create",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "7cca0021-af33-4ff3-8cd1-e6cce0eee4fc",
+			"name": "Create Kontaktperson",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 170,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				170
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "0e0885a0-1723-44de-af8d-5c73f79ea27b",
+			"name": "Create Kontaktperson empty nachname",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "24f0991d-fd22-44fe-9fed-1f33f86c942f",
+			"name": "Create Kontaktperson too short nachname",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ed9151d1-98a5-4344-a428-ed85857710e5",
+			"name": "Create Kontaktperson too long nachname",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "177095e6-5696-4953-b0f5-0acbd83c74a3",
+			"name": "Create Kontaktperson empty vorname",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "5920a9cf-1318-4eee-8631-e8ccfea35453",
+			"name": "Create Kontaktperson too short vorname",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "674c65f2-c17e-4fc3-8327-f64a3791c4f6",
+			"name": "Create Kontaktperson too long vorname",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "3dc45b68-9fa9-4516-a405-9655f8ea62e3",
+			"name": "Create Kontaktperson empty email",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "cd046d63-7a6a-4ce7-b0be-c882b3144143",
+			"name": "Create Kontaktperson invalid email",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "83f3f7a4-187e-488d-b73f-cade8fc16d0e",
+			"name": "Create Kontaktperson empty tel",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "d764aa33-9c7e-4585-80c2-2cc2e79e3fa4",
+			"name": "Create Kontaktperson invalid tel",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "5294f943-eb9b-4c04-af00-5e42cfb0c026",
+			"name": "Create User",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 166,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				166
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "0bead7bf-4951-4ebb-af8e-17bcd24c7fea",
+			"name": "Create User empty username",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ce24d2a2-aed9-43e2-ad59-b047eed59c8f",
+			"name": "Create User too short username",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "c4938082-6676-42e5-bbb3-c720c64f5a7f",
+			"name": "Create User too long username",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "bf4e974d-34bb-42cf-b4d0-9c84cbf117fa",
+			"name": "Create User empty password",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "c2a93f1c-bf87-4efd-b993-7df8ec28cce5",
+			"name": "Create User too short password",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "6dbabf0b-5b87-46ae-92b6-d19f8a5e595b",
+			"name": "Create User too long password",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "d32a45b5-53cb-4e22-86b7-f3db9f2fd5f3",
+			"name": "Create User empty userrole",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "84ce8e2a-57f8-490b-b7a1-0b4eb8dc3ea2",
+			"name": "Create User too short userrole",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "f7331f5f-98fe-4546-abcd-c38a129bf580",
+			"name": "Create User too long userrole",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "18224431-1cb5-4d35-b68c-f09f3c566938",
+			"name": "Update Auto",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/update",
+			"time": 191,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				191
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "8b2557ab-433b-4937-a315-71cbd3173945",
+			"name": "Update Autohaus",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/update",
+			"time": 167,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				167
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "21f92b55-1ff4-4c1f-887a-9f63c935a5fb",
+			"name": "Update Kontaktperson",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/update",
+			"time": 175,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				175
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "7f4be6f3-7a02-4a92-80b6-ade8b1ffd184",
+			"name": "Update User",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/update",
+			"time": 216,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				216
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "36d82f4f-1b1a-46e2-a23c-55dff9beac01",
+			"name": "Delete Auto",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/auto/delete?id=2c9687b1-b5a5-42bc-a376-357fc77a8fea",
+			"time": 176,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				176
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "516e84dc-b8f3-471f-9568-2055e15f350d",
+			"name": "Delete Autohaus",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/autohaus/delete?id=699a7440-c308-4ce8-a497-40864a2f0143",
+			"time": 159,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				159
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "eb94064a-104f-4f8b-a774-e789c8fe3360",
+			"name": "Delete Kontaktperson",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/kontaktperson/delete?id=50377991-3b45-4d6c-abdd-c28d9351963a",
+			"time": 183,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				183
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ef5235ed-b110-45b9-a460-b9a1ee3a239a",
+			"name": "Delete User",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/delete?id=bce0f285-f263-4d12-8991-eeb2ca1b9a6a",
+			"time": 164,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				164
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "2e865965-636f-45c9-8e99-8dc846c05c21",
+			"name": "Logout",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/user/logout",
+			"time": 175,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				175
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "81f11408-5b72-44f6-bb10-6cfdc9015ff2",
+			"name": "Restore",
+			"url": "http://localhost:8080/AutohausEE-1.0/resource/test/restore",
+			"time": 27,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 9760,
+	"collection": {
+		"requests": [
+			{
+				"id": "89dc65ca-9260-4d8e-a56c-b868bc4ebe8f",
+				"method": "POST"
+			},
+			{
+				"id": "831ff9d3-80f3-42af-ab37-11f3d38596e3",
+				"method": "POST"
+			},
+			{
+				"id": "ebd5bfd2-86f8-4770-af68-c73c4c937df4",
+				"method": "POST"
+			},
+			{
+				"id": "0c7f4154-a567-4770-ba80-1eb4f7caff36",
+				"method": "GET"
+			},
+			{
+				"id": "8fa80863-9b6d-4711-a4ed-65a6dbd66f7f",
+				"method": "GET"
+			},
+			{
+				"id": "a99707b9-8802-4517-b26d-94ec99b1f417",
+				"method": "GET"
+			},
+			{
+				"id": "10b03612-55c5-4417-96c7-deade1656bb4",
+				"method": "GET"
+			},
+			{
+				"id": "bdd782a3-308a-4687-a922-c26df6a3b2c0",
+				"method": "GET"
+			},
+			{
+				"id": "ca5c165c-b04b-4e65-842d-bb73e3db4255",
+				"method": "GET"
+			},
+			{
+				"id": "0abdd1a0-1b7c-4570-b1e7-93086b199b8d",
+				"method": "GET"
+			},
+			{
+				"id": "524e3b7d-09c1-4c28-ac06-0c2d3fc1c828",
+				"method": "GET"
+			},
+			{
+				"id": "41dd4de0-2e60-4e27-aebe-20db43a57f3f",
+				"method": "GET"
+			},
+			{
+				"id": "c019259e-c85a-42f5-be49-0add5156ad07",
+				"method": "GET"
+			},
+			{
+				"id": "ac481b33-a043-446b-af5b-8df4724c76f6",
+				"method": "GET"
+			},
+			{
+				"id": "9f487561-d5fd-451d-80a7-a35d2c8f7d4d",
+				"method": "GET"
+			},
+			{
+				"id": "6d04abd8-0d91-4975-8dc7-b2b3b7fd2e54",
+				"method": "POST"
+			},
+			{
+				"id": "eb4f11b4-f6c6-4b52-b929-6dea1476296f",
+				"method": "POST"
+			},
+			{
+				"id": "3270cca5-c7ee-4c17-a015-5321aeba4f92",
+				"method": "POST"
+			},
+			{
+				"id": "1837720a-fece-42ba-93d3-b40667b356f1",
+				"method": "POST"
+			},
+			{
+				"id": "f00c5827-6a48-4e16-aeed-8396dc87cab0",
+				"method": "POST"
+			},
+			{
+				"id": "302b60f6-d1d5-4564-bd28-a0f128f3aa38",
+				"method": "POST"
+			},
+			{
+				"id": "50542709-da2e-4fd2-9aa7-e9e001244e6a",
+				"method": "POST"
+			},
+			{
+				"id": "0c40a08d-d174-46ea-80cb-e5012cc23bbf",
+				"method": "POST"
+			},
+			{
+				"id": "6f94da2d-e4b6-447f-9dcd-531021304e36",
+				"method": "POST"
+			},
+			{
+				"id": "2977a09d-967f-48d1-a19d-22e0f14416cf",
+				"method": "POST"
+			},
+			{
+				"id": "7c4bd07a-2460-4b52-90c2-4ee4c698f8a1",
+				"method": "POST"
+			},
+			{
+				"id": "849aefc3-9ff6-4a87-8c75-51a67023ccc0",
+				"method": "POST"
+			},
+			{
+				"id": "880bd64c-2cb8-4b7f-b0cf-b29d870d5ce2",
+				"method": "POST"
+			},
+			{
+				"id": "cad06d5d-e758-4fc2-8e60-4cf37bca1bb7",
+				"method": "POST"
+			},
+			{
+				"id": "acb2198f-931e-4397-ba0b-dc2f55d42fc3",
+				"method": "POST"
+			},
+			{
+				"id": "8101a954-cdc2-4ae6-9017-4531c0ae98b3",
+				"method": "POST"
+			},
+			{
+				"id": "38a4476c-9808-48eb-aedb-a2b5bdc8c557",
+				"method": "POST"
+			},
+			{
+				"id": "31eb2129-126d-44af-bd72-a0832b7ec543",
+				"method": "POST"
+			},
+			{
+				"id": "1055340c-6108-4f0e-8c20-28348c7a0aac",
+				"method": "POST"
+			},
+			{
+				"id": "91631cd0-bd50-4856-b3c3-282a05c72194",
+				"method": "POST"
+			},
+			{
+				"id": "c012df65-d49f-47ae-b892-0c794891176e",
+				"method": "POST"
+			},
+			{
+				"id": "1d1ab7da-a322-4fdf-bbf7-6f3127b43784",
+				"method": "POST"
+			},
+			{
+				"id": "9a9a275f-3844-4fed-a82d-0c5f74c338ef",
+				"method": "POST"
+			},
+			{
+				"id": "608fe49b-da80-4eb1-a682-311e57bf2700",
+				"method": "POST"
+			},
+			{
+				"id": "be816e03-ca8d-4add-85a9-371a11c0064b",
+				"method": "POST"
+			},
+			{
+				"id": "7869f4f9-edab-49b9-83ab-17067571553d",
+				"method": "POST"
+			},
+			{
+				"id": "77ea8479-01e1-4a01-ac09-db02d1a7b0e7",
+				"method": "POST"
+			},
+			{
+				"id": "55c3eacf-df6f-44eb-8923-4fd8174b28d5",
+				"method": "POST"
+			},
+			{
+				"id": "b98f237d-d636-40bc-a322-520751da0547",
+				"method": "POST"
+			},
+			{
+				"id": "1c9cc730-eae1-4d94-9e9d-19fab7cd00b0",
+				"method": "POST"
+			},
+			{
+				"id": "4b04086e-11b1-4698-bf17-55ed80e1fb62",
+				"method": "POST"
+			},
+			{
+				"id": "4dcd9584-f28a-4218-ab20-dcdeb80b6dec",
+				"method": "POST"
+			},
+			{
+				"id": "e71d6c1b-6d0a-43da-b8a4-3ee8946c1386",
+				"method": "POST"
+			},
+			{
+				"id": "7cca0021-af33-4ff3-8cd1-e6cce0eee4fc",
+				"method": "POST"
+			},
+			{
+				"id": "0e0885a0-1723-44de-af8d-5c73f79ea27b",
+				"method": "POST"
+			},
+			{
+				"id": "24f0991d-fd22-44fe-9fed-1f33f86c942f",
+				"method": "POST"
+			},
+			{
+				"id": "ed9151d1-98a5-4344-a428-ed85857710e5",
+				"method": "POST"
+			},
+			{
+				"id": "177095e6-5696-4953-b0f5-0acbd83c74a3",
+				"method": "POST"
+			},
+			{
+				"id": "5920a9cf-1318-4eee-8631-e8ccfea35453",
+				"method": "POST"
+			},
+			{
+				"id": "674c65f2-c17e-4fc3-8327-f64a3791c4f6",
+				"method": "POST"
+			},
+			{
+				"id": "3dc45b68-9fa9-4516-a405-9655f8ea62e3",
+				"method": "POST"
+			},
+			{
+				"id": "cd046d63-7a6a-4ce7-b0be-c882b3144143",
+				"method": "POST"
+			},
+			{
+				"id": "83f3f7a4-187e-488d-b73f-cade8fc16d0e",
+				"method": "POST"
+			},
+			{
+				"id": "d764aa33-9c7e-4585-80c2-2cc2e79e3fa4",
+				"method": "POST"
+			},
+			{
+				"id": "5294f943-eb9b-4c04-af00-5e42cfb0c026",
+				"method": "POST"
+			},
+			{
+				"id": "0bead7bf-4951-4ebb-af8e-17bcd24c7fea",
+				"method": "POST"
+			},
+			{
+				"id": "ce24d2a2-aed9-43e2-ad59-b047eed59c8f",
+				"method": "POST"
+			},
+			{
+				"id": "c4938082-6676-42e5-bbb3-c720c64f5a7f",
+				"method": "POST"
+			},
+			{
+				"id": "bf4e974d-34bb-42cf-b4d0-9c84cbf117fa",
+				"method": "POST"
+			},
+			{
+				"id": "c2a93f1c-bf87-4efd-b993-7df8ec28cce5",
+				"method": "POST"
+			},
+			{
+				"id": "6dbabf0b-5b87-46ae-92b6-d19f8a5e595b",
+				"method": "POST"
+			},
+			{
+				"id": "d32a45b5-53cb-4e22-86b7-f3db9f2fd5f3",
+				"method": "POST"
+			},
+			{
+				"id": "84ce8e2a-57f8-490b-b7a1-0b4eb8dc3ea2",
+				"method": "POST"
+			},
+			{
+				"id": "f7331f5f-98fe-4546-abcd-c38a129bf580",
+				"method": "POST"
+			},
+			{
+				"id": "18224431-1cb5-4d35-b68c-f09f3c566938",
+				"method": "PUT"
+			},
+			{
+				"id": "8b2557ab-433b-4937-a315-71cbd3173945",
+				"method": "PUT"
+			},
+			{
+				"id": "21f92b55-1ff4-4c1f-887a-9f63c935a5fb",
+				"method": "PUT"
+			},
+			{
+				"id": "7f4be6f3-7a02-4a92-80b6-ade8b1ffd184",
+				"method": "PUT"
+			},
+			{
+				"id": "36d82f4f-1b1a-46e2-a23c-55dff9beac01",
+				"method": "DELETE"
+			},
+			{
+				"id": "516e84dc-b8f3-471f-9568-2055e15f350d",
+				"method": "DELETE"
+			},
+			{
+				"id": "eb94064a-104f-4f8b-a774-e789c8fe3360",
+				"method": "DELETE"
+			},
+			{
+				"id": "ef5235ed-b110-45b9-a460-b9a1ee3a239a",
+				"method": "DELETE"
+			},
+			{
+				"id": "2e865965-636f-45c9-8e99-8dc846c05c21",
+				"method": "POST"
+			},
+			{
+				"id": "81f11408-5b72-44f6-bb10-6cfdc9015ff2",
+				"method": "GET"
+			}
+		]
+	}
+}

@@ -1,6 +1,5 @@
 package ch.bzz.autohaus.data;
 
-import ch.bzz.autohaus.assets.Helper;
 import ch.bzz.autohaus.model.Auto;
 import ch.bzz.autohaus.model.Autohaus;
 import ch.bzz.autohaus.model.Kontaktperson;
@@ -60,13 +59,18 @@ public class DataHandler {
     }
 
     /**
-     * clears the lists
+     * updates the lists
      */
-    public void clearLists() {
+    public void updateLists() {
         getUserList().clear();
         getAutoList().clear();
         getKontaktpersonlist().clear();
         getAutohausList().clear();
+
+        readUserJSON();
+        readAutoJSON();
+        readKontaktpersonJSON();
+        readAutohausJSON();
     }
 
     /**
