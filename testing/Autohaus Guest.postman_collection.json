@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "7b9506ce-133b-4e08-98d4-ff8de4b68671",
-		"name": "Autohaus",
+		"_postman_id": "b9cd9375-1a36-46c2-a00b-22b92102158c",
+		"name": "Autohaus Guest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20792887"
 	},
@@ -29,7 +29,7 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "Albin8604",
+							"value": "Elia",
 							"type": "text"
 						},
 						{
@@ -79,7 +79,7 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "Albin13221",
+							"value": "Eli",
 							"type": "text"
 						},
 						{
@@ -129,7 +129,7 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "Albin8604",
+							"value": "Elia",
 							"type": "text"
 						},
 						{
@@ -632,7 +632,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -2522,7 +2522,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -3487,7 +3487,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -4257,7 +4257,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -4807,7 +4807,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -4902,7 +4902,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -4987,7 +4987,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -5062,7 +5062,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -5122,7 +5122,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -5163,7 +5163,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -5204,7 +5204,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -5245,7 +5245,7 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(403);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -5256,7 +5256,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/AutohausEE-1.0/resource/user/delete?id=6d65e043-2006-4bd2-89e3-69c224d2f83e",
+					"raw": "http://localhost:8080/AutohausEE-1.0/resource/user/delete?id=bce0f285-f263-4d12-8991-eeb2ca1b9a6a",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -5271,7 +5271,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "6d65e043-2006-4bd2-89e3-69c224d2f83e"
+							"value": "bce0f285-f263-4d12-8991-eeb2ca1b9a6a"
 						}
 					]
 				}

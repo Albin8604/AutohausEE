@@ -7,12 +7,17 @@
 },{
 	"userUUID":"6d65e043-2006-4bd2-89e3-69c224d2f83e",
 	"userName":"TEST223",
-	"password":"005e408f4905098f877eab7cf97ce9f0bc706994aa759eb4aa4653cf443e45fb9a0fa831986fabc0e6afce2c243f9605acc6fd3fd4e4a8fe0d16734301f1937f",
+	"password":"fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe",
 	"userRole":"admin"
 },{
 	"userUUID":"6d65e043-2006-4bd2-89e3-69c224d2f83e",
 	"userName":"Elia",
-	"password":"005e408f4905098f877eab7cf97ce9f0bc706994aa759eb4aa4653cf443e45fb9a0fa831986fabc0e6afce2c243f9605acc6fd3fd4e4a8fe0d16734301f1937f",
+	"password":"fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe",
+	"userRole":"guest"
+},{
+	"userUUID":"bce0f285-f263-4d12-8991-eeb2ca1b9a6a",
+	"userName":"ToGetDeleted",
+	"password":"fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe",
 	"userRole":"guest"
 }
 ]

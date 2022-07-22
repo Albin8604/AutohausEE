@@ -35,6 +35,10 @@ public class Helper {
     private static Helper instance = null;
     private static final String FORMAT = "dd.MM.yyyy";
 
+    private static final String OWNER = "owner";
+    private static final String ADMIN = "admin";
+    private static final String GUEST = "guest";
+
     private Helper() {
     }
 
@@ -181,7 +185,7 @@ public class Helper {
      * @return is user valid for reading
      */
     public boolean isUserValidForRead(User loggedInUser) {
-        final List<String> eligibleRoles = Arrays.asList("owner", "admin","guest");
+        final List<String> eligibleRoles = Arrays.asList(OWNER,ADMIN,GUEST);
 
         return hasUserOneOfRoles(loggedInUser, eligibleRoles);
     }
@@ -193,7 +197,7 @@ public class Helper {
      * @return is user valid for creation
      */
     public boolean isUserValidForCreate(User loggedInUser) {
-        final List<String> eligibleRoles = Arrays.asList("owner", "admin");
+        final List<String> eligibleRoles = Arrays.asList(OWNER,ADMIN);
 
         return hasUserOneOfRoles(loggedInUser, eligibleRoles);
     }
@@ -213,7 +217,7 @@ public class Helper {
      * @return is user valid for deletion
      */
     public boolean isUserValidForDelete(User loggedInUser) {
-        final List<String> eligibleRoles = Collections.singletonList("owner");
+        final List<String> eligibleRoles = Collections.singletonList(OWNER);
 
         return hasUserOneOfRoles(loggedInUser, eligibleRoles);
     }

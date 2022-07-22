@@ -56,19 +56,6 @@ public class User {
         this.userRole = userRole;
     }
 
-    /**
-     * Used to logon the user
-     */
-    public void logon(){
-
-    }
-
-    /**
-     * Used to logoff the user
-     */
-    public void logoff(){
-
-    }
 
     /**
      * gets userUUID

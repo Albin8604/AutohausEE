@@ -52,7 +52,7 @@ public class TestService {
             e.printStackTrace();
         }
 
-        DataHandler.getInstance().clearLists();
+        DataHandler.getInstance().updateLists();
         return Response
                 .status(200)
                 .entity("Erfolgreich")
